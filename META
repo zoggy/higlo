@@ -1,0 +1,8 @@
+version = "0.1"
+description = "Syntax highlighting"
+requires = "ulex"
+archive(toploop) = "higlo.cmo"
+archive(byte) = "higlo.cmo"
+archive(native) = "higlo.cmx"
+archive(native,plugin) = "higlo.cmxs"
+
