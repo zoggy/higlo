@@ -25,14 +25,3 @@
 
 (** *)
 
-type token =
-| Keyword of int * string
-| Lcomment of string
-| Bcomment of string
-| String of string
-| Text of string
-| Numeric of string
-| Directive of string
-| Escape of string
-| Symbol of int * string
-

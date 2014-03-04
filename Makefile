@@ -26,20 +26,23 @@
 # DO NOT FORGET TO BUMP VERSION NUMBER IN META TOO
 VERSION=0.1
 
-PACKAGES=ulex
+PACKAGES=ulex,config-file
 OF_FLAGS=-package $(PACKAGES)
 COMPFLAGS=-annot -rectypes -g
 OCAMLPP=
 
 OCAMLFIND=ocamlfind
 
+MAIN=higlo-lang
+MAIN_BYTE=$(MAIN).byte
+
 RM=rm -f
 CP=cp -f
 MKDIR=mkdir -p
 
 all: byte opt
-byte: higlo.cmo
-opt: higlo.cmx higlo.cmxs
+byte: higlo.cmo $(MAIN_BYTE)
+opt: higlo.cmx higlo.cmxs $(MAIN)
 
 higlo.cmx: higlo.cmi higlo.ml
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -c $(COMPFLAGS) higlo.ml
@@ -52,6 +55,12 @@ higlo.cmo: higlo.cmi higlo.ml
 
 higlo.cmi: higlo.mli
 	$(OCAMLFIND) ocamlc $(OF_FLAGS) -c $(COMPFLAGS) $<
+
+$(MAIN): higlo.cmx higlo_main.ml
+	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -o $@ -linkpkg $^
+
+$(MAIN_BYTE): higlo.cmo higlo_main.ml
+	$(OCAMLFIND) ocamlc $(OF_FLAGS) $(COMPFLAGS) -o $@ -linkpkg $^
 
 test-higlo: higlo.cmx test_higlo.ml
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -o $@ -linkpkg $^
