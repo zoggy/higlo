@@ -35,4 +35,11 @@ type token =
 | Directive of string
 | Escape of string
 | Symbol of int * string
+| Constant of string
+
+val string_of_token : token -> string
+
+val register_lang : string -> (Ulexing.lexbuf -> token) -> unit
+
+val parse : lang: string -> string -> token list
 

@@ -35,4 +35,42 @@ type token =
 | Directive of string
 | Escape of string
 | Symbol of int * string
+| Constant of string
 
+module Smap = Map.Make (String)
+let langs = ref Smap.empty
+
+let register_lang name f = langs := Smap.add name f !langs ;;
+
+let parse ~lang s =
+  match try Some (Smap.find lang !langs) with Not_found -> None with
+    None -> [Text s]
+  | Some lexer ->
+      let lexbuf = Ulexing.from_utf8_string s in
+      let len = Array.length (Ulexing.get_buf lexbuf) in
+      let rec iter acc =
+        if Ulexing.get_pos lexbuf >= len then
+          List.rev acc
+        else
+          let token = lexer lexbuf in
+          iter (token :: acc)
+      in
+      try iter []
+      with Ulexing.Error ->
+        let pos = Ulexing.get_pos lexbuf in
+        let msg = Printf.sprintf "Lexing error at character %d" pos in
+        prerr_endline msg ;
+        [Text s]
+;;
+
+let string_of_token = function
+| Keyword (n, s) -> Printf.sprintf "Keyword(%d, %S)" n s
+| Lcomment s -> Printf.sprintf "Lcomment(%S)" s
+| Bcomment s -> Printf.sprintf "Bcomment(%S)" s
+| String s -> Printf.sprintf "String(%S)" s
+| Text s -> Printf.sprintf "Text(%S)" s
+| Numeric s -> Printf.sprintf "Numeric(%S)" s
+| Directive s -> Printf.sprintf "Directive(%S)" s
+| Escape s -> Printf.sprintf "Escape(%S)" s
+| Symbol (n, s) -> Printf.sprintf "Symbol(%d, %S)" n s
+| Constant s -> Printf.sprintf "Constant(%S)" s

@@ -26,7 +26,7 @@
 # DO NOT FORGET TO BUMP VERSION NUMBER IN META TOO
 VERSION=0.1
 
-PACKAGES=ulex,config-file
+PACKAGES=ulex
 OF_FLAGS=-package $(PACKAGES)
 COMPFLAGS=-annot -rectypes -g
 OCAMLPP=
@@ -62,8 +62,12 @@ $(MAIN): higlo.cmx higlo_main.ml
 $(MAIN_BYTE): higlo.cmo higlo_main.ml
 	$(OCAMLFIND) ocamlc $(OF_FLAGS) $(COMPFLAGS) -o $@ -linkpkg $^
 
-test-higlo: higlo.cmx test_higlo.ml
-	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -o $@ -linkpkg $^
+higlo-test: higlo.cmx higlo_ocaml.ml higlo_test.ml
+	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -o $@ -linkpkg -linkall $^
+
+higlo_ocaml.ml: higlo_ocaml.mll
+	camlp4o -printer Camlp4OCamlPrinter.cmo \
+	`$(OCAMLFIND) query ulex`/pa_ulex.cma -impl $< > $@
 
 ##########
 .PHONY: doc
