@@ -122,7 +122,7 @@ include .depend
 ####
 # headers :
 ###########
-HEADFILES=Makefile *.ml *.mli
+HEADFILES=Makefile *.ml *.mli *.mll
 .PHONY: headers noheaders
 headers:
 	headache -h header -c .headache_config $(HEADFILES)
