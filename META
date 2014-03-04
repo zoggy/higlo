@@ -1,8 +1,15 @@
-version = "0.1"
+version = 0.1
 description = "Syntax highlighting"
-requires = "ulex"
+requires = "ulex,xtmpl"
 archive(toploop) = "higlo.cmo"
 archive(byte) = "higlo.cmo"
 archive(native) = "higlo.cmx"
 archive(native,plugin) = "higlo.cmxs"
-
+package "lexers" (
+  version = 0.1
+  description = "Higlo lexers"
+  archive(toploop) = "higlo_ocaml.cmo,higlo_xml.cmo"
+  archive(byte) = "higlo_ocaml.cmo,higlo_xml.cmo"
+  archive(native) = "higlo_ocaml.cmx,higlo_xml.cmx"
+  archive(native,plugin) = "higlo_ocaml.cmxs,higlo_xml.cmxs"
+)

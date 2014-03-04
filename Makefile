@@ -33,9 +33,12 @@ OCAMLPP=
 
 OCAMLFIND=ocamlfind
 
-LEXERS=higlo_ocaml.cmx
-LEXERS_BYTE=$(HIGLO_LEXERS:.cmx=.cmo)
-LEXERS_CMXS=$(HIGLO_LEXERS:.cmx=.cmxs)
+LEXERS=\
+	higlo_ocaml.cmx \
+	higlo_xml.cmx
+
+LEXERS_BYTE=$(LEXERS:.cmx=.cmo)
+LEXERS_CMXS=$(LEXERS:.cmx=.cmxs)
 
 RM=rm -f
 CP=cp -f
@@ -63,7 +66,7 @@ $(MAIN): higlo.cmx higlo_main.ml
 $(MAIN_BYTE): higlo.cmo higlo_main.ml
 	$(OCAMLFIND) ocamlc $(OF_FLAGS) $(COMPFLAGS) -o $@ -linkpkg $^
 
-higlo-test: higlo.cmx higlo_ocaml.cmx higlo_test.cmx
+higlo-test: higlo.cmx $(LEXERS) higlo_test.cmx
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -o $@ -linkpkg -linkall $^
 
 %.ml: %.mll
@@ -77,10 +80,27 @@ higlo-test: higlo.cmx higlo_ocaml.cmx higlo_test.cmx
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -c $<
 
 %.cmxs: %.ml
-	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -shared $<
+	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -shared -o $@ $<
+
+META:
+	@echo	"version = $(VERSION)" > META
+	@echo 'description = "Syntax highlighting"' >> META
+	@echo 'requires = "$(PACKAGES)"' >> META
+	@echo 'archive(toploop) = "higlo.cmo"' >> META
+	@echo 'archive(byte) = "higlo.cmo"' >> META
+	@echo 'archive(native) = "higlo.cmx"' >> META
+	@echo 'archive(native,plugin) = "higlo.cmxs"' >> META
+	@echo 'package "lexers" (' >> META
+	@echo '  version = $(VERSION)' >> META
+	@echo '  description = "Higlo lexers"' >> META
+	@echo '  archive(toploop) = "'`echo $(LEXERS_BYTE) | sed -e "s/ /,/g"`'"' >> META
+	@echo '  archive(byte) = "'`echo $(LEXERS_BYTE) | sed -e "s/ /,/g"`'"' >> META
+	@echo '  archive(native) = "'`echo $(LEXERS) | sed -e "s/ /,/g"`'"' >> META
+	@echo '  archive(native,plugin) = "'`echo $(LEXERS_CMXS) | sed -e "s/ /,/g"`'"' >> META
+	@echo ')' >> META
 
 ##########
-.PHONY: doc
+.PHONY: doc META
 doc:
 	$(MKDIR) doc
 	$(OCAMLFIND) ocamldoc $(OF_FLAGS) -rectypes higlo.mli -t Higlo -d doc -html
@@ -104,7 +124,7 @@ uninstall:
 
 # archive :
 ###########
-archive:
+archive: META
 	git archive --prefix=higlo-$(VERSION)/ HEAD | gzip > ../higlo-gh-pages/higlo-$(VERSION).tar.gz
 
 #####

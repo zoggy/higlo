@@ -54,7 +54,7 @@ let string_of_token = function
 module Smap = Map.Make (String)
 exception Unknown_lang of string
 
-type lexer = Ulexing.lexbuf -> token
+type lexer = Ulexing.lexbuf -> token list
 
 let langs = ref Smap.empty
 
@@ -70,6 +70,20 @@ let parse ~lang s =
     let lexbuf = Ulexing.from_utf8_string s in
     let len = Array.length (Ulexing.get_buf lexbuf) in
     let b = Buffer.create 256 in
+    let rec add_tokens acc = function
+      Text s -> Buffer.add_string b s ; acc
+    | t ->
+        let acc =
+          if Buffer.length b > 0 then
+            (
+             let acc = (Text (Buffer.contents b)) :: acc in
+             Buffer.reset b ;
+             acc
+            )
+          else acc
+        in
+        t :: acc
+    in
     let rec iter acc =
       if Ulexing.get_pos lexbuf >= len then
         begin
@@ -82,21 +96,9 @@ let parse ~lang s =
         end
       else
         begin
-          let token = lexer lexbuf in
-          match token with
-            Text s -> Buffer.add_string b s ; iter acc
-          | t ->
-              let acc =
-                if Buffer.length b > 0 then
-                  (
-                   let acc = (Text (Buffer.contents b)) :: acc in
-                   Buffer.reset b ;
-                   acc
-                  )
-                else acc
-              in
-              iter (token :: acc)
-          end
+          let tokens = lexer lexbuf in
+          iter (List.fold_left add_tokens acc tokens)
+        end
     in
     try iter []
     with Ulexing.Error ->

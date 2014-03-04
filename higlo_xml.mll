@@ -27,55 +27,41 @@ open Higlo
 
 let lexeme = Ulexing.utf8_lexeme;;
 
+
+let regexp space = [' ' '\n' '\t' '\r' ]+
+
 let regexp digit = ['0'-'9']
-let regexp hex = digit | ['A'-'F'] | ['a'-'f']
-let regexp integer = digit+
-let regexp decimal = ['0'-'9']* '.' ['0'-'9']+
-let regexp exponent = ['e''E'] ['+''-']? ['0'-'9']+
-let regexp double = ['0'-'9']+ '.' ['0'-'9']* exponent | '.' (['0'-'9'])+ exponent | (['0'-'9'])+ exponent
-let regexp integer_positive = '+'integer
-let regexp decimal_positive = '+'decimal
-let regexp double_positive = '+'double
-let regexp integer_negative = '-'integer
-let regexp decimal_negative = '-'decimal
-let regexp double_negative = '-'double
+let regexp capchar = ['A'-'Z']
+let regexp lowchar = ['a'-'z']
+let regexp idchar =  lowchar | capchar | '_' | '-' | ':' | digit
 
-let regexp numeric = integer_positive | decimal_positive | double_positive | integer_negative | decimal_negative | double_negative | integer | decimal | double
+let regexp entity = '&' [^'&' ';']+ ';'
 
-let regexp boolean = "true" | "false"
+let regexp tag_start = '<' idchar+
+let regexp tag_end = '/'? '>'
+
 let regexp echar = ['t' 'b' 'n' 'r' 'f' '\\' '"' '\'']
 
 let regexp escaped_char = '\\' echar
 let regexp string = '"' ( ([^0x22]) | escaped_char )* '"'
-let regexp char = "'" ( ([^0x27]) | escaped_char ) "'"
 
-let regexp space = [' ' '\n' '\t' '\r' ]+
+let regexp comment = "<!--" ([^0x3E] | ([^'-']'>'))* "-->"
 
-let regexp capchar = ['A'-'Z']
-let regexp lowchar = ['a'-'z']
-let regexp idchar =  lowchar | capchar | '_' | digit
-
-let regexp modname = capchar idchar*
-
-let regexp comment = "(*" ([^0x2A] | ('*'[^')']))* "*)"
-
-let regexp id = ('_'|lowchar) idchar*
+let regexp id = idchar+
 
 let rec main = lexer
 | space -> [Text (lexeme lexbuf)]
-| numeric -> [Numeric (lexeme lexbuf)]
-| boolean -> [Constant (lexeme lexbuf)]
-| "let"
-| "in"
-| "of"
-| "type" -> [Keyword (0, lexeme lexbuf)]
-| "new" -> [Keyword (1, lexeme lexbuf)]
-| modname -> [Keyword (2, lexeme lexbuf)]
-| id -> [Id (lexeme lexbuf)]
-| string -> [String (lexeme lexbuf)]
-| char -> [String (lexeme lexbuf)]
 | comment -> [Bcomment (lexeme lexbuf)]
+| entity -> [Keyword(1, lexeme lexbuf)]
+| tag_start ->
+  let t = Keyword(0, lexeme lexbuf) in
+  t :: (tag lexbuf)
 | _ -> [Text (lexeme lexbuf)]
-;;
 
-let () = Higlo.register_lang "ocaml" main;;
+and tag = lexer
+| id -> let t = Id (lexeme lexbuf) in t :: tag lexbuf
+| string -> let t = String (lexeme lexbuf) in t :: tag lexbuf
+| tag_end -> [Keyword(0, lexeme lexbuf)]
+| _ -> let t = Text (lexeme lexbuf) in t :: tag lexbuf
+
+let () = Higlo.register_lang "xml" main;;

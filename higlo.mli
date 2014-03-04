@@ -42,7 +42,7 @@ val string_of_token : token -> string
 
 exception Unknown_lang of string
 
-type lexer = Ulexing.lexbuf -> token
+type lexer = Ulexing.lexbuf -> token list
 
 val get_lexer : string -> lexer
 val register_lang : string -> lexer -> unit
