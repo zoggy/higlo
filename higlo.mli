@@ -40,7 +40,21 @@ type token =
 
 val string_of_token : token -> string
 
-val register_lang : string -> (Ulexing.lexbuf -> token) -> unit
+exception Unknown_lang of string
 
+type lexer = Ulexing.lexbuf -> token
+
+val get_lexer : string -> lexer
+val register_lang : string -> lexer -> unit
 val parse : lang: string -> string -> token list
 
+type classes =
+  { id : string ; keyword : int -> string ; lcomment : string ; bcomment : string ;
+    string : string ; text : string ; numeric : string ; directive : string ;
+    escape : string ; symbol : int -> string ; constant : string ;
+  }
+
+val default_classes : classes
+
+val token_to_xtmpl : ?classes: classes -> token -> Xtmpl.tree
+val to_xtmpl : ?classes: classes -> lang:string -> string -> Xtmpl.tree list

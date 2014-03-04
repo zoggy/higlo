@@ -50,7 +50,37 @@ let string_of_file name =
 (*/c==v=[File.string_of_file]=1.0====*)
 
 
-let file = Sys.argv.(1);;
+let files = ref [];;
+let lang = ref "ocaml";;
 
-let tokens = Higlo.parse ~lang: "ocaml" (string_of_file file);;
-let () = List.iter (fun t -> prerr_endline (Higlo.string_of_token t)) tokens;;
+type mode = Tokens | Xtmpl
+let mode = ref Xtmpl
+
+let options = [
+    "--tokens", Arg.Unit (fun () -> mode := Tokens), " Output tokens only" ;
+    "--lang", Arg.Set_string lang, "<s> set language to <s>; default is ocaml" ;
+  ]
+;;
+
+let handle_file file =
+  match !mode with
+    Tokens ->
+      let tokens = Higlo.parse ~lang: !lang (string_of_file file) in
+      List.iter (fun t -> print_endline (Higlo.string_of_token t)) tokens
+  | Xtmpl ->
+      let xmls = Higlo.to_xtmpl ~lang: !lang (string_of_file file) in
+      print_endline (Xtmpl.string_of_xmls xmls)
+;;
+
+let () =
+  try
+    Arg.parse options
+      (fun f  -> files := f :: !files)
+      (Printf.sprintf "Usage: %s [options]\nwhere options are:" Sys.argv.(0));
+    List.iter handle_file (List.rev !files)
+  with
+    Failure s ->
+      prerr_endline s ;
+      exit 1
+;;
+    
