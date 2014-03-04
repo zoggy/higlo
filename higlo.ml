@@ -25,7 +25,10 @@
 
 (** *)
 
+let foo = false
+
 type token =
+| Id of string
 | Keyword of int * string
 | Lcomment of string
 | Bcomment of string
@@ -48,12 +51,34 @@ let parse ~lang s =
   | Some lexer ->
       let lexbuf = Ulexing.from_utf8_string s in
       let len = Array.length (Ulexing.get_buf lexbuf) in
+      let b = Buffer.create 256 in
       let rec iter acc =
         if Ulexing.get_pos lexbuf >= len then
-          List.rev acc
+          begin
+            let acc =
+              if Buffer.length b > 0
+              then (Text (Buffer.contents b)) :: acc
+              else acc
+            in
+            List.rev acc
+          end
         else
-          let token = lexer lexbuf in
-          iter (token :: acc)
+          begin
+            let token = lexer lexbuf in
+            match token with
+              Text s -> Buffer.add_string b s ; iter acc
+            | t ->
+                let acc =
+                  if Buffer.length b > 0 then
+                    (
+                     let acc = (Text (Buffer.contents b)) :: acc in
+                     Buffer.reset b ;
+                     acc
+                    )
+                  else acc
+                in
+                iter (token :: acc)
+          end
       in
       try iter []
       with Ulexing.Error ->
@@ -64,6 +89,7 @@ let parse ~lang s =
 ;;
 
 let string_of_token = function
+| Id s -> Printf.sprintf "Id(%S)" s
 | Keyword (n, s) -> Printf.sprintf "Keyword(%d, %S)" n s
 | Lcomment s -> Printf.sprintf "Lcomment(%S)" s
 | Bcomment s -> Printf.sprintf "Bcomment(%S)" s

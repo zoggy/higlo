@@ -26,6 +26,7 @@
 (** *)
 
 type token =
+| Id of string
 | Keyword of int * string
 | Lcomment of string
 | Bcomment of string

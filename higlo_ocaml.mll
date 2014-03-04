@@ -32,17 +32,24 @@ let regexp idchar =  lowchar | capchar | '_' | digit
 
 let regexp modname = capchar idchar*
 
+let regexp comment = "(*" ([^0x2A] | ('*'[^')']))* "*)"
+
+let regexp id = ('_'|lowchar) idchar*
+
 let rec main = lexer
 | space -> Text (lexeme lexbuf)
 | numeric -> Numeric (lexeme lexbuf)
 | boolean -> Constant (lexeme lexbuf)
 | "let"
 | "in"
-| "of" -> Keyword (0, lexeme lexbuf)
+| "of"
+| "type" -> Keyword (0, lexeme lexbuf)
 | "new" -> Keyword (1, lexeme lexbuf)
 | modname -> Keyword (2, lexeme lexbuf)
+| id -> Id (lexeme lexbuf)
 | string -> String (lexeme lexbuf)
 | char -> String (lexeme lexbuf)
+| comment -> Bcomment (lexeme lexbuf)
 | _ -> Text (lexeme lexbuf)
 ;;
 
