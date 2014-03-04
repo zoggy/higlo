@@ -27,7 +27,7 @@ open Higlo
 
 let lexeme = Ulexing.utf8_lexeme;;
 
-let regexp digit = ['0'-'9']
+let regexp digit = ['0'-'9' '_']
 let regexp hex = digit | ['A'-'F'] | ['a'-'f']
 let regexp integer = digit+
 let regexp decimal = ['0'-'9']* '.' ['0'-'9']+
@@ -40,7 +40,11 @@ let regexp integer_negative = '-'integer
 let regexp decimal_negative = '-'decimal
 let regexp double_negative = '-'double
 
-let regexp numeric = integer_positive | decimal_positive | double_positive | integer_negative | decimal_negative | double_negative | integer | decimal | double
+let regexp binary = "0b" ('0' | '1')+
+let regexp octal = "0o" ['0'-'7']+
+let regexp hexa = "0x" hex +
+
+let regexp numeric = integer_positive | decimal_positive | double_positive | integer_negative | decimal_negative | double_negative | integer | decimal | double | binary | octal | hexa
 
 let regexp boolean = "true" | "false"
 let regexp echar = ['t' 'b' 'n' 'r' 'f' '\\' '"' '\'']

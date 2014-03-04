@@ -83,7 +83,7 @@ higlo-test: higlo.cmx $(LEXERS) higlo_test.cmx
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -shared -o $@ $<
 
 META:
-	@echo	"version = $(VERSION)" > META
+	@echo	'version = "$(VERSION)"' > META
 	@echo 'description = "Syntax highlighting"' >> META
 	@echo 'requires = "$(PACKAGES)"' >> META
 	@echo 'archive(toploop) = "higlo.cmo"' >> META
@@ -91,8 +91,9 @@ META:
 	@echo 'archive(native) = "higlo.cmx"' >> META
 	@echo 'archive(native,plugin) = "higlo.cmxs"' >> META
 	@echo 'package "lexers" (' >> META
-	@echo '  version = $(VERSION)' >> META
+	@echo '  version = "$(VERSION)"' >> META
 	@echo '  description = "Higlo lexers"' >> META
+	@echo '  requires = "higlo"' >> META
 	@echo '  archive(toploop) = "'`echo $(LEXERS_BYTE) | sed -e "s/ /,/g"`'"' >> META
 	@echo '  archive(byte) = "'`echo $(LEXERS_BYTE) | sed -e "s/ /,/g"`'"' >> META
 	@echo '  archive(native) = "'`echo $(LEXERS) | sed -e "s/ /,/g"`'"' >> META
@@ -117,7 +118,8 @@ webdoc:
 ##########
 install: higlo.cmo higlo.cmx higlo.cmxs
 	ocamlfind install higlo META LICENSE \
-		higlo.cmi higlo.mli higlo.cmo higlo.cmx higlo.cmxs higlo.o
+		higlo.cmi higlo.mli higlo.cmo higlo.cmx higlo.cmxs higlo.o \
+		$(LEXERS) $(LEXERS_CMXS) $(LEXERS_BYTE) $(LEXERS:.cmx=.o) $(LEXERS:.cmx=.cmi)
 
 uninstall:
 	ocamlfind remove higlo
