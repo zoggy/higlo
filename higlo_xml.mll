@@ -40,10 +40,7 @@ let regexp entity = '&' [^'&' ';']+ ';'
 let regexp tag_start = '<' '/'? idchar+
 let regexp tag_end = '/'? '>'
 
-let regexp echar = ['t' 'b' 'n' 'r' 'f' '\\' '"' '\'']
-
-let regexp escaped_char = '\\' echar
-let regexp string = '"' ( ([^0x22]) | escaped_char )* '"'
+let regexp string = '"' [^'"']* '"'
 
 let regexp comment = "<!--" ([^0x3E] | ([^'-']'>'))* "-->"
 

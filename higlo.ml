@@ -26,30 +26,30 @@
 (** *)
 
 type token =
+| Bcomment of string (** block comment *)
+| Constant of string
+| Directive of string
+| Escape of string (** Escape sequence like [\123] *)
 | Id of string
 | Keyword of int * string
-| Lcomment of string
-| Bcomment of string
-| String of string
-| Text of string
+| Lcomment of string (** one line comment *)
 | Numeric of string
-| Directive of string
-| Escape of string
+| String of string
 | Symbol of int * string
-| Constant of string
+| Text of string (** Used for everything else *)
 
 let string_of_token = function
+| Bcomment s -> Printf.sprintf "Bcomment(%S)" s
+| Constant s -> Printf.sprintf "Constant(%S)" s
+| Directive s -> Printf.sprintf "Directive(%S)" s
+| Escape s -> Printf.sprintf "Escape(%S)" s
 | Id s -> Printf.sprintf "Id(%S)" s
 | Keyword (n, s) -> Printf.sprintf "Keyword(%d, %S)" n s
 | Lcomment s -> Printf.sprintf "Lcomment(%S)" s
-| Bcomment s -> Printf.sprintf "Bcomment(%S)" s
-| String s -> Printf.sprintf "String(%S)" s
-| Text s -> Printf.sprintf "Text(%S)" s
 | Numeric s -> Printf.sprintf "Numeric(%S)" s
-| Directive s -> Printf.sprintf "Directive(%S)" s
-| Escape s -> Printf.sprintf "Escape(%S)" s
+| String s -> Printf.sprintf "String(%S)" s
 | Symbol (n, s) -> Printf.sprintf "Symbol(%d, %S)" n s
-| Constant s -> Printf.sprintf "Constant(%S)" s
+| Text s -> Printf.sprintf "Text(%S)" s
 
 module Smap = Map.Make (String)
 exception Unknown_lang of string
@@ -111,23 +111,32 @@ let parse ~lang s =
 ;;
 
 type classes =
-  { id : string ; keyword : int -> string ; lcomment : string ; bcomment : string ;
-    string : string ; text : string ; numeric : string ; directive : string ;
-    escape : string ; symbol : int -> string ; constant : string ;
+  {
+    bcomment : string ;
+    constant : string ;
+    directive : string ;
+    escape : string ;
+    id : string ;
+    keyword : int -> string ;
+    lcomment : string ;
+    numeric : string ;
+    string : string ;
+    symbol : int -> string ;
+    text : string ;
   }
 
 let default_classes = {
+    bcomment = "comment" ;
+    constant = "constant" ;
+    directive = "directive" ;
+    escape = "escape" ;
     id = "id" ;
     keyword = (function 0 -> "kw" | n -> "kw"^(string_of_int n)) ;
     lcomment = "comment" ;
-    bcomment = "comment" ;
-    string = "string" ;
-    text = "text" ;
     numeric = "numeric" ;
-    directive = "directive" ;
-    escape = "escape" ;
+    string = "string" ;
     symbol = (function 0 -> "sym" | n -> "sym"^(string_of_int n)) ;
-    constant = "constant" ;
+    text = "text" ;
   }
 ;;
 
@@ -138,17 +147,17 @@ let token_to_xtmpl =
   in
   fun ?(classes=default_classes) ->
     function
+    | Bcomment s -> node classes.bcomment s
+    | Constant s -> node classes.constant s
+    | Directive s -> node classes.directive s
+    | Escape s -> node classes.escape s
     | Id s -> node classes.id s
     | Keyword (n, s) -> node (classes.keyword n) s
     | Lcomment s -> node classes.lcomment s
-    | Bcomment s -> node classes.bcomment s
-    | String s -> node classes.string s
-    | Text s -> node classes.text s
     | Numeric s -> node classes.numeric s
-    | Directive s -> node classes.directive s
-    | Escape s -> node classes.escape s
+    | String s -> node classes.string s
     | Symbol (n, s) -> node (classes.symbol n) s
-    | Constant s -> node classes.constant s
+    | Text s -> node classes.text s
 ;;
 
 let to_xtmpl ?classes ~lang s =
