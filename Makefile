@@ -111,7 +111,7 @@ archive:
 .PHONY: clean depend
 
 clean:
-	$(RM) *.cm* *.o *.annot *.a test-higlo
+	$(RM) *.cm* *.o *.annot *.a higlo-test
 	$(RM) $(LEXERS) $(LEXERS_CMXS) $(LEXERS_BYTE)
 
 .depend depend:
