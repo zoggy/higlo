@@ -1,0 +1,55 @@
+<ocamldoc with-contents="true">
+<title>Higlo : Index of values</title><contents><div class="ocamldoc-page">
+<div class="navbar">&#160;<a class="up" href="index.html" title="Index">Up</a>
+&#160;</div>
+<h1>Index of values</h1>
+<table>
+<tr><td align="left"><br/>D</td></tr>
+<tr><td><a href="Higlo.html#VALdefault_classes">default_classes</a> [<a href="Higlo.html">Higlo</a>]</td>
+<td><div class="info">
+Default X(HTML) classes.
+</div>
+</td></tr>
+<tr><td align="left"><br/>G</td></tr>
+<tr><td><a href="Higlo.html#VALget_lexer">get_lexer</a> [<a href="Higlo.html">Higlo</a>]</td>
+<td><div class="info">
+<code class="code">get_lexer lang</code> returns the lexer registered for the given language
+  <code class="code">lang</code> or raises <a href="Higlo.html#EXCEPTIONUnknown_lang"><code class="code">Higlo.Unknown_lang</code></a> if no such language was registered.
+</div>
+</td></tr>
+<tr><td align="left"><br/>P</td></tr>
+<tr><td><a href="Higlo.html#VALparse">parse</a> [<a href="Higlo.html">Higlo</a>]</td>
+<td><div class="info">
+<code class="code">parse ~lang code</code> gets the lexer associated to <code class="code">lang</code>
+  and uses it to build a list of tokens.
+</div>
+</td></tr>
+<tr><td align="left"><br/>R</td></tr>
+<tr><td><a href="Higlo.html#VALregister_lang">register_lang</a> [<a href="Higlo.html">Higlo</a>]</td>
+<td><div class="info">
+If a lexer was registered for the same language, it is not
+  available any more.
+</div>
+</td></tr>
+<tr><td align="left"><br/>S</td></tr>
+<tr><td><a href="Higlo.html#VALstring_of_token">string_of_token</a> [<a href="Higlo.html">Higlo</a>]</td>
+<td><div class="info">
+For debug printing.
+</div>
+</td></tr>
+<tr><td align="left"><br/>T</td></tr>
+<tr><td><a href="Higlo.html#VALto_xtmpl">to_xtmpl</a> [<a href="Higlo.html">Higlo</a>]</td>
+<td><div class="info">
+<code class="code">to_xtmpl ~lang code</code> gets the lexer associate to the language <code class="code">lang</code>,
+  use it to retrieve a list of tokens (using the <a href="Higlo.html#VALparse"><code class="code">Higlo.parse</code></a> function)
+  and map these tokens to XML nodes.
+</div>
+</td></tr>
+<tr><td><a href="Higlo.html#VALtoken_to_xtmpl">token_to_xtmpl</a> [<a href="Higlo.html">Higlo</a>]</td>
+<td><div class="info">
+Map a token to an XML tree (just a <code class="code">&lt;span class="..."&gt;code&lt;/span&gt;</code> node).
+</div>
+</td></tr>
+</table>
+</div></contents>
+</ocamldoc>

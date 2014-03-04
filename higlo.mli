@@ -56,15 +56,15 @@ exception Unknown_lang of string
 type lexer = Ulexing.lexbuf -> token list
 
 (** [get_lexer lang] returns the lexer registered for the given language
-  [lang] or raise {!Unknown_lang} is no such language was registered. *)
+  [lang] or raises {!Unknown_lang} if no such language was registered. *)
 val get_lexer : string -> lexer
 
 (** If a lexer was registered for the same language, it is not
   available any more. *)
 val register_lang : string -> lexer -> unit
 
-(** [parse ~lang code] get the lexer associated to [lang]
-  and use it to build a list of tokens. Consecutive [Text]
+(** [parse ~lang code] gets the lexer associated to [lang]
+  and uses it to build a list of tokens. Consecutive [Text]
   tokens are merged.
   If no lexer is associated to the given language, then
   the function returns [Text code].
@@ -91,13 +91,13 @@ type classes =
 (** Default X(HTML) classes. *)
 val default_classes : classes
 
-(** Map a token to an XML tree (just a <span class="...">code</span> node).
+(** Map a token to an XML tree (just a [<span class="...">code</span>] node).
   @param classes is used to change the class names used in the generated
   node. *)
 val token_to_xtmpl : ?classes: classes -> token -> Xtmpl.tree
 
-(** [to_xtmpl ~lang code] gets the lexer associate to the language [lang],
-  use it to retrieve a list of tokens (using the {!parse} function)
-  and map these tokens to XML nodes. See {!token_to_xtmpl} about
+(** [to_xtmpl ~lang code] gets the lexer associated to the language [lang],
+  uses it to retrieve a list of tokens (using the {!parse} function)
+  and maps these tokens to XML nodes. See {!token_to_xtmpl} about
   the [classes] parameter. *)
 val to_xtmpl : ?classes: classes -> lang:string -> string -> Xtmpl.tree list

@@ -1,0 +1,51 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title><site-title/> : <elt-title/></title>
+<link rel="stylesheet" type="text/css" href="&lt;site-url/&gt;/style.css"></link>
+</head>
+<body>
+<div id="page">
+<include file="menubar.tmpl"/>
+<div id="header">
+  <if elt-type="page"><elt-path> / </elt-path></if>
+  <if elt-type="post">
+    <div class="elt-navbar">
+      <if previous=""><main_/><div class="navleft"><previous/></div></if>
+      <if next=""><main_/><div class="navright"><next/></div></if>
+    </div>
+  </if>
+  <if elt-type="ocamldoc"><main_/><div class="page-title"><elt-title/></div></if>
+</div>
+<if withsidebar="true"><include file="sidebar.tmpl"/><main_/></if>
+<if elt-type="post"><div class="date"><elt-date/></div></if>
+
+<elt-body/>
+
+<if elt-type="post">
+ <div class="comments">
+ <hr width="100%"/>
+  <div>
+    <div class="elt-keywords">
+      <div class="bloc-keywords">
+      Topics: <div class="keywords"><elt-topics sep=", "/></div>
+      </div>
+      <div class="bloc-keywords">
+      Keywords: <div class="keywords"><elt-keywords sep=", "/></div>
+      </div>
+    </div>
+  </div>
+  <div itemprop="articleSection" class="section">
+    <comments/>
+  </div>
+ </div>
+</if>
+
+<if elt-type="page"><eltcode/></if>
+<if elt-type="post"><eltcode/></if>
+<!--<script type="text/javascript" src="&lt;site-url/&gt;/jquery.js">_</script>-->
+<!--<script type="text/javascript" src="&lt;site-url/&gt;/bootstrap-collapse.js">_</script>-->
+
+</div> <!-- #page -->
+</body>
+</html>

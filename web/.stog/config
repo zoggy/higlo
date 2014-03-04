@@ -1,0 +1,12 @@
+(* Regexps of files to ignore *)
+ignored = [".*less"; ".*\\.git"; ".*Makefile"; ".*tmpl$"]
+(* Regexps of files containing elements *)
+elements = [".*\\.xml$"; ".*\\.html$"]
+(* Regexps of files matching 'elements' regexps but not containing elements
+   *)
+"not-elements" = []
+(* follow symlinks when bulding source file and directory tree *)
+"follow-symlinks" = false
+(* Run levels of modules, for example:
+         [ ("html", [ ("base", [ 0 ; 61 ]) ] ) ] *)
+levels = []

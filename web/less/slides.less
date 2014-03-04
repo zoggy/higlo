@@ -1,0 +1,73 @@
+@import "style.less";
+
+div.background {
+  background-color: @navbarBackground ;
+  height: 2 * @navbarHeight;
+}
+
+div.slide h1 {
+  color: lighten(@navbarText,20) ;
+/*  font-size: 90% ;*/
+}
+
+div.slide {
+  overflow-x: hidden;
+}
+div.first-slide {
+  h1 {
+    display: block;
+    padding-top: 3em;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 100%;
+    font-size: 3em;
+    color: @navbarBackground ;
+  }
+  h2 {
+    padding-top: 1.5em;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 100%;
+    font-size: 1em;
+    color: @navbarBackground ;
+  }
+}
+
+div.cover-details {
+  position: fixed;
+  bottom: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+div.toolbar {
+  height: 2em;
+}
+
+span.icode {
+  font-size: 1em;
+}
+
+h1 span.icode {
+  color: lighten(@navbarText, 15);
+}
+
+.slide pre {
+  font-size: 0.6em;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: auto;
+  padding-right: auto;
+  width: 90%;
+}
+
+.slide img.latex {
+  vertical-align: middle;
+}
+
+.showeval-arrow {
+  text-align: right;
+}
