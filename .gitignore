@@ -8,4 +8,6 @@
 *.cmx
 *.cmxs
 *.cmxa
-higlo-lang*
+higlo-test*
+higlo_ocaml.ml
+

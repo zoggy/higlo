@@ -1,0 +1,11 @@
+higlo.cmo : higlo.cmi
+higlo.cmx : higlo.cmi
+higlo_lang.cmo :
+higlo_lang.cmx :
+higlo_main.cmo :
+higlo_main.cmx :
+higlo_ocaml.cmo : higlo.cmi
+higlo_ocaml.cmx : higlo.cmx
+higlo_test.cmo : higlo.cmi
+higlo_test.cmx : higlo.cmx
+higlo.cmi :

@@ -25,8 +25,6 @@
 
 (** *)
 
-let foo = false
-
 type token =
 | Id of string
 | Keyword of int * string
