@@ -53,11 +53,12 @@ let string_of_file name =
 let files = ref [];;
 let lang = ref "ocaml";;
 
-type mode = Tokens | Xtmpl
+type mode = Tokens | Xtmpl | Html
 let mode = ref Xtmpl
 
 let options = [
     "--tokens", Arg.Unit (fun () -> mode := Tokens), " Output tokens only" ;
+    "--html", Arg.Unit (fun () -> mode := Html), " Output an HTML page" ;
     "--lang", Arg.Set_string lang, "<s> set language to <s>; default is ocaml" ;
   ]
 ;;
@@ -70,6 +71,15 @@ let handle_file file =
   | Xtmpl ->
       let xmls = Higlo.to_xtmpl ~lang: !lang (string_of_file file) in
       print_endline (Xtmpl.string_of_xmls xmls)
+  | Html ->
+      let xmls = Higlo.to_xtmpl ~lang: !lang (string_of_file file) in
+      print_string "<html><head>
+      <meta content=\"text/html; charset=utf-8\" http-equiv=\"Content-Type\"/>
+      <link href=\"style.css\" rel=\"stylesheet\" type=\"text/css\"/>
+      </head>
+      <body><pre>";
+      print_string (Xtmpl.string_of_xmls xmls);
+      print_string "</pre></body></html>"
 ;;
 
 let () =

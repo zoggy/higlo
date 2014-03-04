@@ -37,7 +37,7 @@ let regexp idchar =  lowchar | capchar | '_' | '-' | ':' | digit
 
 let regexp entity = '&' [^'&' ';']+ ';'
 
-let regexp tag_start = '<' idchar+
+let regexp tag_start = '<' '/'? idchar+
 let regexp tag_end = '/'? '>'
 
 let regexp echar = ['t' 'b' 'n' 'r' 'f' '\\' '"' '\'']

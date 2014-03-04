@@ -61,16 +61,22 @@ let regexp comment = "(*" ([^0x2A] | ('*'[^')']))* "*)"
 
 let regexp id = ('_'|lowchar) idchar*
 
+let regexp decl_kw = "and" |"class" |"constraint" |"exception" |"external" |"let" |"fun" |"function" |"functor" |"in" |"include" |"inherit" |"initializer" |"method" |"module" |"mutable" |"of" |"open" |"private" |"rec" |"type" |"val" |"virtual"
+
+let regexp expr_kw ="asr" |"do" |"else" |"for" |"if" |"while" |"as" |"assert" |"begin" |"do" |"done" |"downto" |"else" |"end" |"for" |"if" |"land" |"lazy" |"lor" |"lsl" |"lsr" |"lxor" |"match" |"mod" |"new" |"object" |"or" | "ref" |"sig" |"struct" |"then" |"to" |"try" |"when" |"while" |"with" |"#"
+
+let regexp type_kw =  "bool" | "int" |"string" |"list" |"array" |"float" |"char" |"unit"
+let regexp label = '~' id
+
 let rec main = lexer
 | space -> [Text (lexeme lexbuf)]
 | numeric -> [Numeric (lexeme lexbuf)]
 | boolean -> [Constant (lexeme lexbuf)]
-| "let"
-| "in"
-| "of"
-| "type" -> [Keyword (0, lexeme lexbuf)]
-| "new" -> [Keyword (1, lexeme lexbuf)]
+| decl_kw -> [Keyword (0, lexeme lexbuf)]
+| expr_kw -> [Keyword (1, lexeme lexbuf)]
 | modname -> [Keyword (2, lexeme lexbuf)]
+| type_kw -> [Keyword (3, lexeme lexbuf)]
+| label -> [Keyword (4, lexeme lexbuf)]
 | id -> [Id (lexeme lexbuf)]
 | string -> [String (lexeme lexbuf)]
 | char -> [String (lexeme lexbuf)]
