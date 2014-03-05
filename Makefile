@@ -82,23 +82,30 @@ higlo-test: higlo.cmx $(LEXERS) higlo_test.cmx
 %.cmxs: %.ml
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -shared -o $@ $<
 
-META:
-	@echo	'version = "$(VERSION)"' > META
-	@echo 'description = "Syntax highlighting"' >> META
-	@echo 'requires = "$(PACKAGES)"' >> META
-	@echo 'archive(toploop) = "higlo.cmo"' >> META
-	@echo 'archive(byte) = "higlo.cmo"' >> META
-	@echo 'archive(native) = "higlo.cmx"' >> META
-	@echo 'archive(native,plugin) = "higlo.cmxs"' >> META
-	@echo 'package "lexers" (' >> META
-	@echo '  version = "$(VERSION)"' >> META
-	@echo '  description = "Higlo lexers"' >> META
-	@echo '  requires = "higlo"' >> META
-	@echo '  archive(toploop) = "'`echo $(LEXERS_BYTE) | sed -e "s/ /,/g"`'"' >> META
-	@echo '  archive(byte) = "'`echo $(LEXERS_BYTE) | sed -e "s/ /,/g"`'"' >> META
-	@echo '  archive(native) = "'`echo $(LEXERS) | sed -e "s/ /,/g"`'"' >> META
-	@echo '  archive(native,plugin) = "'`echo $(LEXERS_CMXS) | sed -e "s/ /,/g"`'"' >> META
-	@echo ')' >> META
+#META:
+#	@echo	'version = "$(VERSION)"' > META
+#	@echo 'description = "Syntax highlighting"' >> META
+#	@echo 'requires = "$(PACKAGES)"' >> META
+#	@echo 'archive(toploop) = "higlo.cmo"' >> META
+#	@echo 'archive(byte) = "higlo.cmo"' >> META
+#	@echo 'archive(native) = "higlo.cmx"' >> META
+#	@echo 'archive(native,plugin) = "higlo.cmxs"' >> META
+#	@echo 'package "lexers" (' >> META
+#	@echo '  version = "$(VERSION)"' >> META
+#	@echo '  description = "Higlo lexers"' >> META
+#	@echo '  requires = "higlo.ocaml,higlo.xml"' >> META
+#	@echo ')' >> META
+#	@for i in `echo $(LEXERS) | cut -d'.' -f 1`; do \
+#	echo 'package "$$i" ( \
+#	  version = "$(VERSION)"' >> META \
+#	echo '  description = "Higlo $$i lexer"' >> META \
+#	echo '  requires = "higlo"' >> META \
+#	echo '  archive(toploop) = "higlo_$$i.cmo"' >> META \
+#	echo '  archive(byte) = "higlo_$$i.cmo"' >> META \
+#	echo '  archive(native) = "higlo_$$i.cmx"' >> META \
+#	echo '  archive(native,plugin) = "higlo_$$i.cmxs"' >> META \
+#	echo ')' >> META ; \
+#	done
 
 ##########
 .PHONY: doc META
