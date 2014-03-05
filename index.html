@@ -38,6 +38,23 @@
 Higlo is an OCaml library for syntax highlighting. Higlo could
 mean <strong>Hig</strong>h<strong>l</strong>ighting in <strong>O</strong>caml.
 </p>
+<p>
+The purpose of Higlo is not to provide syntax highlighting for every language,
+nor target every format (HTML, LaTeX, ...). It provides a simple way to
+support additional languages and develop the generator for the output
+format you need.
+</p>
+<p>
+By now, only OCaml and XML input languages are provided, and it only
+generates <a href="http://zoggy.github.io/xtmpl/refdoc/Xtmpl.html#TYPEtree">Xtmpl.tree</a>
+to highlight code in XML. Developing support for additional input languages
+is just a matter of writing a Ulex lexer. Supporting another output
+format only requires mapping values of type <a href="http://zoggy.github.io/higlo/refdoc/Higlo.html#TYPEtoken">token</a>.
+</p>
+<p>See the <a href="https://github.com/zoggy/higlo/blob/master/higlo_ocaml.mll">OCaml lexer</a>
+for an example of Higlo Ulex lexer.
+</p>
+
 <div class="section"><div class="section-title" id="download">Download</div>
 <p>
 Higlo is <a href="https://github.com/zoggy/higlo">hosted on Github</a>.
