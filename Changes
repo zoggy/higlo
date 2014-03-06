@@ -1,0 +1,3 @@
+Next release:
+- ocaml lexer: handle toplevel directives
+

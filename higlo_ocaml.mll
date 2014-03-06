@@ -72,10 +72,13 @@ let regexp expr_kw ="asr" |"do" |"else" |"for" |"if" |"while" |"as" |"assert" |"
 let regexp type_kw =  "bool" | "int" |"string" |"list" |"array" |"float" |"char" |"unit"
 let regexp label = '~' id
 
+let regexp directive = '\n''\r'? '#' lowchar idchar*
+
 let rec main = lexer
 | space -> [Text (lexeme lexbuf)]
 | numeric -> [Numeric (lexeme lexbuf)]
 | boolean -> [Constant (lexeme lexbuf)]
+| directive -> [Directive (lexeme lexbuf)]
 | decl_kw -> [Keyword (0, lexeme lexbuf)]
 | expr_kw -> [Keyword (1, lexeme lexbuf)]
 | modname -> [Keyword (2, lexeme lexbuf)]
