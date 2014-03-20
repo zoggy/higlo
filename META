@@ -1,4 +1,4 @@
-version = "0.1"
+version = "0.2"
 description = "Syntax highlighting"
 requires = "ulex,xtmpl"
 archive(toploop) = "higlo.cmo"
@@ -6,12 +6,12 @@ archive(byte) = "higlo.cmo"
 archive(native) = "higlo.cmx"
 archive(native,plugin) = "higlo.cmxs"
 package "lexers" (
-  version = "0.1"
+  version = "0.2"
   description = "Higlo lexers"
   requires = "higlo.ocaml,higlo.xml"
 )
 package "ocaml" (
-  version = "0.1"
+  version = "0.2"
   description = "Higlo OCaml lexer"
   requires = "higlo"
   archive(toploop) = "higlo_ocaml.cmo"
@@ -20,7 +20,7 @@ package "ocaml" (
   archive(native,plugin) = "higlo_ocaml.cmxs"
 )
 package "xml" (
-  version = "0.1"
+  version = "0.2"
   description = "Higlo XML lexer"
   requires = "higlo"
   archive(toploop) = "higlo_xml.cmo"
