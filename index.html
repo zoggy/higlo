@@ -15,7 +15,7 @@
   <div class="nav-collapse">
     <ul class="nav">
     <li class="active"><a href="http://zoggy.github.io/higlo/index.html">Higlo</a></li>
-    <li class="&lt;navbar-doc/&gt;"><a href="http://zoggy.github.io/higlo/refdoc/">Documentation</a></li>
+    <li class="&lt;navbar-doc/&gt;"><a href="http://zoggy.github.io/higlo/doc.html">Documentation</a></li>
 
   </ul>
   <div class="nav pull-right">  </div>
@@ -62,6 +62,12 @@ Higlo is <a href="https://github.com/zoggy/higlo">hosted on Github</a>.
 
 <div class="subsection"><div class="subsection-title" id="releases">Releases</div>
 <ul>
+<li><a href="higlo-0.3.tar.gz">0.3</a> [2014-03-21]:
+<ul>
+<li>New <a href="http://zoggy.github.io/higlo/higlo.html"><code>higlo</code></a> command line tool,</li>
+<li>with its <a href="http://zoggy.github.io/higlo/higlo.html#mk-higlo"><code>mk-higlo</code></a> script companion.</li>
+</ul>
+</li>
 <li><a href="higlo-0.2.tar.gz">0.2</a> [2014-03-20]:
 <ul>
 <li>ocaml lexer: handle toplevel directives,</li>
@@ -87,14 +93,11 @@ to be installed.
 <li><span class="shell">make all install</span></li>
 </ul>
 <p>
-This will install the <tt>higlo</tt> and <tt>higlo.lexers</tt>
-packages with findlib.
-</p>
-</div>
-
-<div class="section"><div class="section-title" id="doc">Documentation</div>
-<p>
-Reference documentation is <a href="refdoc/Higlo.html">here</a>
+This will install the <code>higlo</code>, <code>higlo.lexers</code>,
+<code>higlo.ocaml</code> and <code>higlo.xml</code> packages with findlib.
+It will also install the <a href="http://zoggy.github.io/higlo/higlo.html"><code>higlo</code> command line tool</a>
+and the <a href="http://zoggy.github.io/higlo/higlo.html#mk-higlo"><code>mk-higlo script</code></a> in
+the same directory as ocamlfind.
 </p>
 </div>
 

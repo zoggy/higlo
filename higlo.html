@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Higlo : The higlo tool</title>
+<link href="http://zoggy.github.io/higlo/style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="page">
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+
+
+  <div class="nav-collapse">
+    <ul class="nav">
+    <li class="&lt;navbar-home/&gt;"><a href="http://zoggy.github.io/higlo/index.html">Higlo</a></li>
+    <li class="active"><a href="http://zoggy.github.io/higlo/doc.html">Documentation</a></li>
+
+  </ul>
+  <div class="nav pull-right">  </div>
+  </div>
+
+</div>
+</div>
+</div>
+
+<div id="header">
+  
+  
+  <div class="page-title">The higlo tool</div>
+</div>
+
+
+
+
+<p>
+Higlo comes with a command line tool, <span class="icode"><span class="hl std">higlo</span></span>.
+It reads source code files and output this code syntactically highlighted.
+If no source code file is given on the command line, then standard input
+is read instead.
+The source language (the lexer used) and the output format
+can be specified on the command line. The default language is &quot;ocaml&quot;
+and default output format is &quot;xml&quot;.
+</p>
+<p>
+Compiled OCaml code can be loaded to add languages or output formats.
+</p>
+
+
+<div class="section"><div class="section-title" id="usage">Synopsis</div>
+<p>Usage:</p>
+<pre>higlo [options] [source files]
+where options are:
+  -v                          verbose mode
+  -f &lt;s&gt;                      set output format to &lt;s&gt;; default is xml
+  -l &lt;s&gt;                      set language to &lt;s&gt;; default is ocaml
+  --pkg pkg1,pkg2,...         dynmically load the given packages
+  --load file1.cm[xs|o|a],... dynmically load the given object files
+  -help                       Display this list of options
+  --help                      Display this list of options
+</pre>
+</div>
+
+<div class="section"><div class="section-title" id="mk-higlo">mk-higlo</div>
+<p>
+The <span class="icode"><span class="hl std">mk-higlo</span></span> script eases the creation of a custom executable,
+i.e. a higlo tool where additional code is already linked in.
+</p>
+<p>Suppose we defined an additional printer in <span class="icode"><span class="hl std">myprint.ml</span></span>.
+The printer only prints the code in raw text. We do not forget to
+register the printer using <span class="icode"><span class="hl kwc">Higlo_printers</span><span class="hl std">.</span><span class="">register_printer</span></span>:
+</p>
+<pre class="code-ocaml"><span class="hl kwa">open</span><span class="hl std"> </span><span class="hl kwc">Higlo</span><span class="hl std">;;
+
+</span><span class="hl kwa">let</span><span class="hl std"> </span><span class="">token_to_string</span><span class="hl std"> = </span><span class="hl kwa">function</span><span class="hl std">
+| </span><span class="hl kwc">Bcomment</span><span class="hl std"> </span><span class="">s</span><span class="hl std">
+| </span><span class="hl kwc">Constant</span><span class="hl std"> </span><span class="">s</span><span class="hl std">
+| </span><span class="hl kwc">Directive</span><span class="hl std"> </span><span class="">s</span><span class="hl std">
+| </span><span class="hl kwc">Escape</span><span class="hl std"> </span><span class="">s</span><span class="hl std">
+| </span><span class="hl kwc">Id</span><span class="hl std"> </span><span class="">s</span><span class="hl std">
+| </span><span class="hl kwc">Keyword</span><span class="hl std"> (</span><span class="hl num">_</span><span class="hl std">, </span><span class="">s</span><span class="hl std">)
+| </span><span class="hl kwc">Lcomment</span><span class="hl std"> </span><span class="">s</span><span class="hl std">
+| </span><span class="hl kwc">Numeric</span><span class="hl std"> </span><span class="">s</span><span class="hl std">
+| </span><span class="hl kwc">String</span><span class="hl std"> </span><span class="">s</span><span class="hl std">
+| </span><span class="hl kwc">Symbol</span><span class="hl std"> (</span><span class="hl num">_</span><span class="hl std">, </span><span class="">s</span><span class="hl std">)
+| </span><span class="hl kwc">Text</span><span class="hl std"> </span><span class="">s</span><span class="hl std"> -&gt; </span><span class="">s</span><span class="hl std">
+;;
+
+</span><span class="hl kwa">let</span><span class="hl std"> </span><span class="">printer</span><span class="hl std"> </span><span class="">tokens</span><span class="hl std"> =
+  </span><span class="hl kwc">List</span><span class="hl std">.</span><span class="">iter</span><span class="hl std"> (</span><span class="hl kwa">fun</span><span class="hl std"> </span><span class="">t</span><span class="hl std"> -&gt; </span><span class="">print_string</span><span class="hl std"> (</span><span class="">token_to_string</span><span class="hl std"> </span><span class="">t</span><span class="hl std">)) </span><span class="">tokens</span><span class="hl std">
+;;
+
+</span><span class="hl kwa">let</span><span class="hl std"> () = </span><span class="hl kwc">Higlo_printers</span><span class="hl std">.</span><span class="">register_printer</span><span class="hl std"> </span><span class="hl str">&quot;raw&quot;</span><span class="hl std"> </span><span class="">printer</span><span class="hl std">;;</span></pre>
+<p>
+We can create a new higlo tool already containing this module:
+</p>
+<pre class="code-sh">mk<span class="hl opt">-</span>higlo <span class="hl opt">-</span>o myhiglo myprint.ml</pre>
+<p>Now we can use the &quot;raw&quot; printer with the produced executable:</p>
+<pre class="code-sh">.<span class="hl opt">/</span>myhiglo <span class="hl opt">-</span>f raw mycode.ml</pre>
+</div>
+
+
+
+
+<doccode></doccode>
+
+
+
+
+</div> 
+</body>
+</html>
