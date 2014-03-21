@@ -30,47 +30,6 @@ type to_load = Pkgs of string list | Files of string list
 let verbose = ref false;;
 let verb msg = if !verbose then prerr_endline msg;;
 
-type printer = Higlo.token list -> unit
-
-module SMap = Map.Make(String);;
-
-let printers = ref SMap.empty ;;
-
-let get_printer name =
-  try SMap.find name !printers
-  with Not_found -> failwith (Printf.sprintf "Unknown printer %S" name)
-;;
-
-let register_printer name f = printers := SMap.add name f !printers;;
-
-let xml_printer tokens =
-  let xmls = List.map Higlo.token_to_xtmpl tokens in
-  print_string (Xtmpl.string_of_xmls xmls)
-;;
-
-let html_printer tokens =
-  print_string "<html>
-  <head>
-    <meta content=\"text/html; charset=utf-8\" http-equiv=\"Content-Type\"/>
-    <link href=\"style.css\" rel=\"stylesheet\" type=\"text/css\"/>
-  </head>
-  <body><pre>";
-  xml_printer tokens;
-  print_string "</pre></body></html>"
-;;
-
-let token_printer tokens =
-  List.iter (fun t -> print_string (Higlo.string_of_token t)) tokens
-;;
-
-let () =
-  List.iter (fun (name, f) -> register_printer name f)
-    [ "xml", xml_printer ;
-      "html", html_printer ;
-      "tokens", token_printer ;
-    ]
-;;
-
 (*c==v=[File.string_of_file]=1.0====*)
 let string_of_file name =
   let chanin = open_in_bin name in
@@ -206,7 +165,7 @@ let () =
       (fun f  -> files := f :: !files)
       (Printf.sprintf "Usage: %s [options]\nwhere options are:" Sys.argv.(0));
     dynload_code (List.rev !to_load);
-    let printer = get_printer !out_format in
+    let printer = Higlo_printers.get_printer !out_format in
     ignore(
      try let _x = Higlo.get_lexer !lang in ()
      with Higlo.Unknown_lang name -> failwith (Printf.sprintf "Unknown language %S" name)

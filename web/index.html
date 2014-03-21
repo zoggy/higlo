@@ -6,8 +6,8 @@ stog:site-url="http://zoggy.github.io/higlo"
 stog:rss-length="10"
 navbar-home="active"
 with-contents="true"
-section-counter="false"
-subsection-counter="false"
+stog:section-counter="false"
+stog:subsection-counter="false"
 >
 <contents>
 <p>
@@ -63,14 +63,11 @@ to be installed.
 <li><span class="shell">make all install</span></li>
 </ul>
 <p>
-This will install the <tt>higlo</tt> and <tt>higlo.lexers</tt>
-packages with findlib.
-</p>
-</section>
-
-<section id="doc" title="Documentation">
-<p>
-Reference documentation is <a href="refdoc/Higlo.html">here</a>
+This will install the <code>higlo</code>, <code>higlo.lexers</code>,
+<code>higlo.ocaml</code> and <code>higlo.xml</code> packages with findlib.
+It will also install the <doc href="higlo"><code>higlo</code> command line tool</doc>
+and the <doc href="higlo#mk-higlo"><code>mk-higlo script</code></doc> in
+the same directory as ocamlfind.
 </p>
 </section>
 

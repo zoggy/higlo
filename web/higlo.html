@@ -1,0 +1,35 @@
+<page title="The higlo tool"
+navbar-doc="active"
+>
+<p>
+Higlo comes with a command line tool, <icode>higlo</icode>.
+It reads source code files and output this code syntactically highlighted.
+The source language (the lexer used) and the output format
+can be specified on the command line. The default language is "ocaml"
+and default output format is "xml".
+</p>
+<p>
+Compiled OCaml code can be loaded to add languages or output formats.
+</p>
+
+
+<section id="usage" title="Synopsis">
+<p>Usage:</p>
+<pre>higlo [options] file1 [file2 [file 3...]]
+<include file="./usage.txt" raw="true"/></pre>
+</section>
+
+<section id="mk-higlo" title="mk-higlo">
+<p>
+The <icode>mk-higlo</icode> script eases the creation of a custom executable,
+i.e. a higlo tool where additional code is already linked in.
+</p>
+<p>Suppose we defined an additional printer in <icode>myprint.ml</icode>:
+</p>
+<ocaml defer_="1"><include file="./myprinter.ml" raw="true"/></ocaml>
+<p>
+Then we can create a new higlo tool already containing this module:
+</p>
+<command-line>mk-higlo -o myhiglo myprint.ml</command-line>
+</section>
+</page>

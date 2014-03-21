@@ -64,10 +64,14 @@ higlo.cmo: higlo.cmi higlo.ml
 higlo.cmi: higlo.mli
 	$(OCAMLFIND) ocamlc $(OF_FLAGS) -c $(COMPFLAGS) $<
 
-$(HIGLO): higlo.cmx $(LEXERS) higlo_main.ml
+higlo_printers.cmi: higlo_printers.mli
+	$(OCAMLFIND) ocamlc $(OF_FLAGS) -c $(COMPFLAGS) $<
+higlo_printers.cmx higlo_printers.cmo: higlo_printers.cmi
+
+$(HIGLO): higlo.cmx $(LEXERS) higlo_printers.cmx higlo_main.ml
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -o $@ -package dynlink -linkpkg $^
 
-$(HIGLO_BYTE): higlo.cmo $(LEXERS_BYTE) higlo_main.ml
+$(HIGLO_BYTE): higlo.cmo $(LEXERS_BYTE) higlo_printers.cmo higlo_main.ml
 	$(OCAMLFIND) ocamlc $(OF_FLAGS) $(COMPFLAGS) -o $@ -package dynlink -linkpkg $^
 
 $(MK_HIGLO):
@@ -76,9 +80,9 @@ $(MK_HIGLO):
 	@echo "# Multi-shell script.  Works under Bourne Shell, MPW Shell, zsh." > $@
 	@echo "if : == x" >> $@
 	@echo "then # Bourne Shell or zsh" >> $@
-	@echo "  exec $(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -package dynlink,higlo.lexers -linkpkg -linkall $(INCLUDES) \"\$$@\" higlo_main.cmx" >> $@
+	@echo "  exec $(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -package dynlink,higlo.lexers -linkpkg -linkall $(INCLUDES) higlo_printers.cmx \"\$$@\" higlo_main.cmx" >> $@
 	@echo "else #MPW Shell" >> $@
-	@echo "  exec $(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -package dynlink,higlo.lexers -linkpkg -linkall $(INCLUDES) {\"parameters\"} higlo_main.cmx" >> $@
+	@echo "  exec $(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -package dynlink,higlo.lexers -linkpkg -linkall $(INCLUDES) higlo_printers.cmx {\"parameters\"} higlo_main.cmx" >> $@
 	@echo "End # uppercase E because \"end\" is a keyword in zsh" >> $@
 	@echo "fi" >> $@
 	@chmod ugo+rx $@
@@ -149,7 +153,8 @@ install-lib: higlo.cmo higlo.cmx higlo.cmxs $(HIGLO) $(HIGLO_BYTE)
 	ocamlfind install higlo META LICENSE \
 		higlo.cmi higlo.mli higlo.cmo higlo.cmx higlo.cmxs higlo.o \
 		$(LEXERS) $(LEXERS_CMXS) $(LEXERS_BYTE) $(LEXERS:.cmx=.o) $(LEXERS:.cmx=.cmi) \
-		higlo_main.cmi higlo_main.cmo higlo_main.cmx higlo_main.o
+		higlo_main.cmi higlo_main.cmo higlo_main.cmx higlo_main.o \
+		higlo_printers.cmi higlo_printers.cmo higlo_printers.cmx higlo_printers.o
 
 uninstall: uninstall-bin uninstall-lib
 
