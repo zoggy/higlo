@@ -95,6 +95,11 @@ let string_of_file name =
   Buffer.contents buf
 (*/c==v=[File.string_of_file]=1.0====*)
 
+let handle_file lang printer file =
+  let tokens = Higlo.parse ~lang (string_of_file file) in
+  printer tokens
+;;
+
 (*c==v=[String.split_string]=1.2====*)
 let split_string ?(keep_empty=false) s chars =
   let len = String.length s in
@@ -172,13 +177,8 @@ let dynload_code l =
 
 let to_load = ref [];;
 
-let add_pkgs s =
-  to_load := (Pkgs (split_string s [','; ' '])) :: !to_load
-;;
-
-let add_dynfiles s =
-  to_load := (Files (split_string s [','; ' '])) :: !to_load
-;;
+let add_pkgs s = to_load := (Pkgs (split_string s [','; ' '])) :: !to_load ;;
+let add_dynf s = to_load := (Files (split_string s [','; ' '])) :: !to_load;;
 
 let files = ref [];;
 let lang = ref "ocaml";;
@@ -195,14 +195,9 @@ let options = [
     "--pkg", Arg.String add_pkgs,
     "pkg1,pkg2,... dynmically load the given packages" ;
 
-    "--load", Arg.String add_dynfiles,
+    "--load", Arg.String add_dynf,
     "file1.cm[xs|o|a],... dynmically load the given object files" ;
   ]
-;;
-
-let handle_file lang printer file =
-  let tokens = Higlo.parse ~lang (string_of_file file) in
-  printer tokens
 ;;
 
 let () =
