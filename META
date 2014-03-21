@@ -28,4 +28,12 @@ package "xml" (
   archive(native) = "higlo_xml.cmx"
   archive(native,plugin) = "higlo_xml.cmxs"
 )
+package "main" (
+  version = "0.3"
+  description = "Higlo tool main module"
+  requires = "dynlink"
+  archive(toploop) = "higlo_main.cmo"
+  archive(byte) = "higlo_main.cmo"
+  archive(native) = "higlo_main.cmx"
+)
 

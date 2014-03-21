@@ -42,6 +42,7 @@ LEXERS_CMXS=$(LEXERS:.cmx=.cmxs)
 
 HIGLO=higlo
 HIGLO_BYTE=$(HIGLO).byte
+MK_HIGLO=mk-higlo
 
 RM=rm -f
 CP=cp -f
@@ -49,7 +50,7 @@ MKDIR=mkdir -p
 
 all: byte opt
 byte: higlo.cmo $(LEXERS_BYTE) $(HIGLO_BYTE)
-opt: higlo.cmx higlo.cmxs $(LEXERS) $(LEXERS_CMXS) $(HIGLO)
+opt: higlo.cmx higlo.cmxs $(LEXERS) $(LEXERS_CMXS) $(HIGLO) $(MK_HIGLO)
 
 higlo.cmx: higlo.cmi higlo.ml
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -c $(COMPFLAGS) higlo.ml
@@ -68,6 +69,22 @@ $(HIGLO): higlo.cmx $(LEXERS) higlo_main.ml
 
 $(HIGLO_BYTE): higlo.cmo $(LEXERS_BYTE) higlo_main.ml
 	$(OCAMLFIND) ocamlc $(OF_FLAGS) $(COMPFLAGS) -o $@ -package dynlink -linkpkg $^
+
+$(MK_HIGLO):
+	@echo -n "Creating $@... "
+	@$(RM) $@
+	@echo "# Multi-shell script.  Works under Bourne Shell, MPW Shell, zsh." > $@
+	@echo "if : == x" >> $@
+	@echo "then # Bourne Shell or zsh" >> $@
+	@echo "  exec $(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -package dynlink,higlo.lexers -linkpkg -linkall $(INCLUDES) \"\$$@\" higlo_main.cmx" >> $@
+	@echo "else #MPW Shell" >> $@
+	@echo "  exec $(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -package dynlink,higlo.lexers -linkpkg -linkall $(INCLUDES) {\"parameters\"} higlo_main.cmx" >> $@
+	@echo "End # uppercase E because \"end\" is a keyword in zsh" >> $@
+	@echo "fi" >> $@
+	@chmod ugo+rx $@
+	@chmod a-w $@
+	@echo done
+
 
 %.ml: %.mll
 	camlp4o -printer Camlp4OCamlPrinter.cmo \
@@ -126,19 +143,20 @@ webdoc:
 install: install-lib install-bin
 
 install-bin:
-	$(CP) $(HIGLO) $(HIGLO_BYTE) `dirname \`which ocamlfind\``/
+	$(CP) $(HIGLO) $(HIGLO_BYTE) $(MK_HIGLO) `dirname \`which ocamlfind\``/
 
 install-lib: higlo.cmo higlo.cmx higlo.cmxs $(HIGLO) $(HIGLO_BYTE)
 	ocamlfind install higlo META LICENSE \
 		higlo.cmi higlo.mli higlo.cmo higlo.cmx higlo.cmxs higlo.o \
 		$(LEXERS) $(LEXERS_CMXS) $(LEXERS_BYTE) $(LEXERS:.cmx=.o) $(LEXERS:.cmx=.cmi) \
-		higlo_main.cmi
+		higlo_main.cmi higlo_main.cmo higlo_main.cmx higlo_main.o
 
 uninstall: uninstall-bin uninstall-lib
 
 uninstall-bin:
 	$(RM) `dirname \`which ocamlfind\``/$(HIGLO)
 	$(RM) `dirname \`which ocamlfind\``/$(HIGLO_BYTE)
+	$(RM) `dirname \`which ocamlfind\``/$(MK_HIGLO)
 
 uninstall-lib:
 	ocamlfind remove higlo
@@ -154,6 +172,7 @@ archive: META
 clean:
 	$(RM) *.cm* *.o *.annot *.a higlo-test
 	$(RM) $(LEXERS) $(LEXERS_CMXS) $(LEXERS_BYTE)
+	$(RM) $(MK_HIGLO)
 
 .depend depend:
 	$(OCAMLFIND) ocamldep *.ml *.mli > .depend
