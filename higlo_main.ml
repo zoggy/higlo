@@ -30,9 +30,7 @@ type to_load = Pkgs of string list | Files of string list
 let verbose = ref false;;
 let verb msg = if !verbose then prerr_endline msg;;
 
-(*c==v=[File.string_of_file]=1.0====*)
-let string_of_file name =
-  let chanin = open_in_bin name in
+let string_of_inch chanin =
   let len = 1024 in
   let s = String.create len in
   let buf = Buffer.create len in
@@ -50,12 +48,24 @@ let string_of_file name =
       End_of_file -> ()
   in
   iter ();
-  close_in chanin;
   Buffer.contents buf
-(*/c==v=[File.string_of_file]=1.0====*)
+;;
+
+let string_of_file name =
+  let chanin = open_in_bin name in
+  let s = string_of_inch chanin in
+  close_in chanin ;
+  s
+;;
 
 let handle_file lang printer file =
   let tokens = Higlo.parse ~lang (string_of_file file) in
+  printer tokens
+;;
+
+let handle_stdin lang printer =
+  let code = string_of_inch stdin in
+  let tokens = Higlo.parse ~lang code in
   printer tokens
 ;;
 
@@ -163,14 +173,16 @@ let () =
   try
     Arg.parse (Arg.align options)
       (fun f  -> files := f :: !files)
-      (Printf.sprintf "Usage: %s [options]\nwhere options are:" Sys.argv.(0));
+      (Printf.sprintf "Usage: %s [options] [files]\nwhere options are:" Sys.argv.(0));
     dynload_code (List.rev !to_load);
     let printer = Higlo_printers.get_printer !out_format in
     ignore(
      try let _x = Higlo.get_lexer !lang in ()
      with Higlo.Unknown_lang name -> failwith (Printf.sprintf "Unknown language %S" name)
     );
-    List.iter (handle_file !lang printer) (List.rev !files)
+    match List.rev !files with
+      [] -> handle_stdin !lang printer
+    | files -> List.iter (handle_file !lang printer) files
   with
     Failure s ->
       prerr_endline s ;

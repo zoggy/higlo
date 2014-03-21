@@ -4,6 +4,8 @@ navbar-doc="active"
 <p>
 Higlo comes with a command line tool, <icode>higlo</icode>.
 It reads source code files and output this code syntactically highlighted.
+If no source code file is given on the command line, then standard input
+is read instead.
 The source language (the lexer used) and the output format
 can be specified on the command line. The default language is "ocaml"
 and default output format is "xml".
@@ -15,7 +17,7 @@ Compiled OCaml code can be loaded to add languages or output formats.
 
 <section id="usage" title="Synopsis">
 <p>Usage:</p>
-<pre>higlo [options] file1 [file2 [file 3...]]
+<pre>higlo [options] [source files]
 <include file="./usage.txt" raw="true"/></pre>
 </section>
 
