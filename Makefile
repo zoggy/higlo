@@ -40,13 +40,16 @@ LEXERS=\
 LEXERS_BYTE=$(LEXERS:.cmx=.cmo)
 LEXERS_CMXS=$(LEXERS:.cmx=.cmxs)
 
+HIGLO=higlo
+HIGLO_BYTE=$(HIGLO).byte
+
 RM=rm -f
 CP=cp -f
 MKDIR=mkdir -p
 
 all: byte opt
-byte: higlo.cmo $(LEXERS_BYTE)
-opt: higlo.cmx higlo.cmxs $(LEXERS) $(LEXERS_CMXS)
+byte: higlo.cmo $(LEXERS_BYTE) $(HIGLO_BYTE)
+opt: higlo.cmx higlo.cmxs $(LEXERS) $(LEXERS_CMXS) $(HIGLO)
 
 higlo.cmx: higlo.cmi higlo.ml
 	$(OCAMLFIND) ocamlopt $(OF_FLAGS) -c $(COMPFLAGS) higlo.ml
@@ -60,14 +63,11 @@ higlo.cmo: higlo.cmi higlo.ml
 higlo.cmi: higlo.mli
 	$(OCAMLFIND) ocamlc $(OF_FLAGS) -c $(COMPFLAGS) $<
 
-$(MAIN): higlo.cmx higlo_main.ml
-	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -o $@ -linkpkg $^
+$(HIGLO): higlo.cmx $(LEXERS) higlo_main.ml
+	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -o $@ -package dynlink -linkpkg $^
 
-$(MAIN_BYTE): higlo.cmo higlo_main.ml
-	$(OCAMLFIND) ocamlc $(OF_FLAGS) $(COMPFLAGS) -o $@ -linkpkg $^
-
-higlo-test: higlo.cmx $(LEXERS) higlo_test.cmx
-	$(OCAMLFIND) ocamlopt $(OF_FLAGS) $(COMPFLAGS) -o $@ -linkpkg -linkall $^
+$(HIGLO_BYTE): higlo.cmo $(LEXERS_BYTE) higlo_main.ml
+	$(OCAMLFIND) ocamlc $(OF_FLAGS) $(COMPFLAGS) -o $@ -package dynlink -linkpkg $^
 
 %.ml: %.mll
 	camlp4o -printer Camlp4OCamlPrinter.cmo \
