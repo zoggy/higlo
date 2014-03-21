@@ -24,7 +24,7 @@
 #################################################################################
 
 # DO NOT FORGET TO BUMP VERSION NUMBER IN META TOO
-VERSION=0.2
+VERSION=0.3
 
 PACKAGES=ulex,xtmpl
 OF_FLAGS=-package $(PACKAGES)
@@ -123,12 +123,24 @@ webdoc:
 	cd web && $(MAKE)
 
 ##########
-install: higlo.cmo higlo.cmx higlo.cmxs
+install: install-lib install-bin
+
+install-bin:
+	$(CP) $(HIGLO) $(HIGLO_BYTE) `dirname \`which ocamlfind\``/
+
+install-lib: higlo.cmo higlo.cmx higlo.cmxs $(HIGLO) $(HIGLO_BYTE)
 	ocamlfind install higlo META LICENSE \
 		higlo.cmi higlo.mli higlo.cmo higlo.cmx higlo.cmxs higlo.o \
-		$(LEXERS) $(LEXERS_CMXS) $(LEXERS_BYTE) $(LEXERS:.cmx=.o) $(LEXERS:.cmx=.cmi)
+		$(LEXERS) $(LEXERS_CMXS) $(LEXERS_BYTE) $(LEXERS:.cmx=.o) $(LEXERS:.cmx=.cmi) \
+		higlo_main.cmi
 
-uninstall:
+uninstall: uninstall-bin uninstall-lib
+
+uninstall-bin:
+	$(RM) `dirname \`which ocamlfind\``/$(HIGLO)
+	$(RM) `dirname \`which ocamlfind\``/$(HIGLO_BYTE)
+
+uninstall-lib:
 	ocamlfind remove higlo
 
 # archive :
