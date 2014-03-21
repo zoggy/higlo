@@ -26,12 +26,16 @@ Compiled OCaml code can be loaded to add languages or output formats.
 The <icode>mk-higlo</icode> script eases the creation of a custom executable,
 i.e. a higlo tool where additional code is already linked in.
 </p>
-<p>Suppose we defined an additional printer in <icode>myprint.ml</icode>:
+<p>Suppose we defined an additional printer in <icode>myprint.ml</icode>.
+The printer only prints the code in raw text. We do not forget to
+register the printer using <icode lang="ocaml">Higlo_printers.register_printer</icode>:
 </p>
 <ocaml defer_="1"><include file="./myprinter.ml" raw="true"/></ocaml>
 <p>
-Then we can create a new higlo tool already containing this module:
+We can create a new higlo tool already containing this module:
 </p>
 <command-line>mk-higlo -o myhiglo myprint.ml</command-line>
+<p>Now we can use the "raw" printer with the produced executable:</p>
+<command-line>./myhiglo -f raw mycode.ml</command-line>
 </section>
 </page>

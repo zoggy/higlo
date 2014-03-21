@@ -1,3 +1,7 @@
+Release 0.3:
+- new higlo tool
+- new mk-higlo script
+
 Release 0.2:
 - ocaml lexer: handle toplevel directives
 - META: add separate packages higlo.ocaml and higlo.xml,
