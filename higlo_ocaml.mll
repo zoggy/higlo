@@ -72,13 +72,23 @@ let regexp expr_kw ="asr" |"do" |"else" |"for" |"if" |"while" |"as" |"assert" |"
 let regexp type_kw =  "bool" | "int" |"string" |"list" |"array" |"float" |"char" |"unit"
 let regexp label = '~' id
 
-let regexp directive = '\n''\r'? '#' lowchar idchar*
+let regexp directive = ('\n''\r'?)? '#' lowchar idchar*
 
 let rec main = lexer
 | space -> [Text (lexeme lexbuf)]
 | numeric -> [Numeric (lexeme lexbuf)]
 | boolean -> [Constant (lexeme lexbuf)]
-| directive -> [Directive (lexeme lexbuf)]
+| directive ->
+    begin
+      let s = lexeme lexbuf in
+      match String.get s 0 with
+        '\n' -> [Directive s]
+      | _ ->
+         match Ulexing.lexeme_start lexbuf with
+           0 -> [Directive s]
+         | _ ->
+           [Keyword (1, "#") ; Id (String.sub s 1 (String.length s - 1))]
+    end
 | decl_kw -> [Keyword (0, lexeme lexbuf)]
 | expr_kw -> [Keyword (1, lexeme lexbuf)]
 | modname -> [Keyword (2, lexeme lexbuf)]
