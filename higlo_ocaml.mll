@@ -70,6 +70,8 @@ let regexp decl_kw = "and" |"class" |"constraint" |"exception" |"external" |"let
 let regexp expr_kw ="asr" |"do" |"else" |"for" |"if" |"while" |"as" |"assert" |"begin" |"do" |"done" |"downto" |"else" |"end" |"for" |"if" |"land" |"lazy" |"lor" |"lsl" |"lsr" |"lxor" |"match" |"mod" |"new" |"object" |"or" | "ref" |"sig" |"struct" |"then" |"to" |"try" |"when" |"while" |"with" |"#"
 
 let regexp type_kw =  "bool" | "int" |"string" |"list" |"array" |"float" |"char" |"unit"
+
+let regexp lwt_kw = "lwt" | "raise_lwt" | ">>=" | ">>" | "=<<" | "for_lwt" | "assert_lwt" | "match_lwt" | "while_lwt"
 let regexp label = '~' id
 
 let regexp directive = ('\n''\r'?)? '#' lowchar idchar*
@@ -93,6 +95,7 @@ let rec main = lexer
 | expr_kw -> [Keyword (1, lexeme lexbuf)]
 | modname -> [Keyword (2, lexeme lexbuf)]
 | type_kw -> [Keyword (3, lexeme lexbuf)]
+| lwt_kw -> [Keyword (10, lexeme lexbuf)]
 | label -> [Keyword (4, lexeme lexbuf)]
 | id -> [Id (lexeme lexbuf)]
 | string -> [String (lexeme lexbuf)]

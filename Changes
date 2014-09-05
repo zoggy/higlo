@@ -1,5 +1,6 @@
 Next release:
 - fix #2: bad lexing of directives on first line
+- OCaml lexer: handle Lwt keywords as Keyword 10
 
 Release 0.3:
 - new higlo tool
