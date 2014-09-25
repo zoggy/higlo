@@ -24,11 +24,11 @@
 #################################################################################
 
 # DO NOT FORGET TO BUMP VERSION NUMBER IN META TOO
-VERSION=0.3
+VERSION=0.4
 
 PACKAGES=ulex,xtmpl
 OF_FLAGS=-package $(PACKAGES)
-COMPFLAGS=-annot -rectypes -g
+COMPFLAGS=-annot -rectypes -g -safe-string
 OCAMLPP=
 
 OCAMLFIND=ocamlfind

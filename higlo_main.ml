@@ -32,7 +32,7 @@ let verb msg = if !verbose then prerr_endline msg;;
 
 let string_of_inch chanin =
   let len = 1024 in
-  let s = String.create len in
+  let s = Bytes.create len in
   let buf = Buffer.create len in
   let rec iter () =
     try
@@ -41,7 +41,7 @@ let string_of_inch chanin =
         ()
       else
         (
-         Buffer.add_substring buf s 0 n;
+         Buffer.add_subbytes buf s 0 n;
          iter ()
         )
     with
