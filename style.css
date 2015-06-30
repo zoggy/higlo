@@ -1,4 +1,4 @@
-.id { color: #333333 ; font-style: italic }
+.id { color: #333333 ; font-style: italic ; text-decoration: underline}
 .kw { color: red ; font-weight: bold ;}
 .kw1 { color: orange ; font-weight: bold ;}
 .kw2 { color: blue ; font-weight: bold ;}

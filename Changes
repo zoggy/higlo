@@ -1,3 +1,6 @@
+Next release:
+- add JSON lexer
+
 Release 0.4:
 - safe-string mode
 - OCaml lexer: fix #2: bad lexing of directives on first line

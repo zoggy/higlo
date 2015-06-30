@@ -34,6 +34,7 @@ OCAMLPP=
 OCAMLFIND=ocamlfind
 
 LEXERS=\
+	higlo_json.cmx \
 	higlo_ocaml.cmx \
 	higlo_xml.cmx
 
