@@ -1,5 +1,5 @@
 Next release:
-- add JSON lexer
+- add json and dot lexers
 
 Release 0.4:
 - safe-string mode

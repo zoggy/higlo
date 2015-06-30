@@ -8,7 +8,16 @@ archive(native,plugin) = "higlo.cmxs"
 package "lexers" (
   version = "0.4"
   description = "Higlo lexers"
-  requires = "higlo.ocaml,higlo.xml,higlo.json"
+  requires = "higlo.dot,higlo.json,higlo.ocaml,higlo.xml"
+)
+package "dot" (
+  version = "0.4"
+  description = "Higlo dot lexer"
+  requires = "higlo"
+  archive(toploop) = "higlo_dot.cmo"
+  archive(byte) = "higlo_dot.cmo"
+  archive(native) = "higlo_dot.cmx"
+  archive(native,plugin) = "higlo_dot.cmxs"
 )
 package "json" (
   version = "0.4"
