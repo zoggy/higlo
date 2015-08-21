@@ -65,7 +65,7 @@ let regexp comment = "(*" ([^0x2A] | ('*'[^')']))* "*)"
 
 let regexp id = ('_'|lowchar) idchar*
 
-let regexp decl_kw = "and" |"class" |"constraint" |"exception" |"external" |"let" |"fun" |"function" |"functor" |"in" |"include" |"inherit" |"initializer" |"method" |"module" |"mutable" |"of" |"open" |"private" |"rec" |"type" |"val" |"virtual"
+let regexp decl_kw = "and" |"class" |"constraint" |"exception" |"external" |"let" |"fun" |"function" |"functor" |"in" |"include" |"inherit" |"initializer" |"method" |"module" |"mutable" | "nonrec" | "of" |"open" |"private" |"rec" |"type" |"val" |"virtual"
 
 let regexp expr_kw ="asr" |"do" |"else" |"for" |"if" |"while" |"as" |"assert" |"begin" |"do" |"done" |"downto" |"else" |"end" |"for" |"if" |"land" |"lazy" |"lor" |"lsl" |"lsr" |"lxor" |"match" |"mod" |"new" |"object" |"or" | "ref" |"sig" |"struct" |"then" |"to" |"try" |"when" |"while" |"with" |"#"
 

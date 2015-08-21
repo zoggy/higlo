@@ -1,5 +1,6 @@
 Next release:
 - add json and dot lexers
+- support "nonrec" keyword in ocaml lexer
 
 Release 0.4:
 - safe-string mode
