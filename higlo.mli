@@ -94,10 +94,16 @@ val default_classes : classes
 (** Map a token to an XML tree (just a [<span class="...">code</span>] node).
   @param classes is used to change the class names used in the generated
   node. *)
-val token_to_xtmpl : ?classes: classes -> token -> Xtmpl.tree
+val token_to_xml : ?classes: classes -> token -> Xtmpl_xml.tree
+
+(** Same as {!token_to_xml} but return a {!Xtmpl_rewrite.tree}. *)
+val token_to_xml_rewrite : ?classes: classes -> token -> Xtmpl_rewrite.tree
 
 (** [to_xtmpl ~lang code] gets the lexer associated to the language [lang],
   uses it to retrieve a list of tokens (using the {!parse} function)
   and maps these tokens to XML nodes. See {!token_to_xtmpl} about
   the [classes] parameter. *)
-val to_xtmpl : ?classes: classes -> lang:string -> string -> Xtmpl.tree list
+val to_xml : ?classes: classes -> lang:string -> string -> Xtmpl_xml.tree list
+
+(** Same as {!to_xml} but return a {!Xtmpl_rewrite.tree}. *)
+val to_xml_rewrite : ?classes: classes -> lang:string -> string -> Xtmpl_rewrite.tree list

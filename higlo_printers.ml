@@ -39,8 +39,8 @@ let get_printer name =
 let register_printer name f = printers := SMap.add name f !printers;;
 
 let xml_printer tokens =
-  let xmls = List.map Higlo.token_to_xtmpl tokens in
-  print_string (Xtmpl.string_of_xmls xmls)
+  let xmls = List.map Higlo.token_to_xml tokens in
+  print_string (Xtmpl_xml.to_string xmls)
 ;;
 
 let html_printer tokens =

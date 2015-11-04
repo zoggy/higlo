@@ -140,11 +140,7 @@ let default_classes = {
   }
 ;;
 
-let token_to_xtmpl =
-  let node cl cdata =
-    let atts = Xtmpl.atts_one ("","class") [Xtmpl.D cl] in
-    Xtmpl.E (("","span"), atts, [Xtmpl.D cdata])
-  in
+let token_to node =
   fun ?(classes=default_classes) ->
     function
     | Bcomment s -> node classes.bcomment s
@@ -158,8 +154,30 @@ let token_to_xtmpl =
     | String s -> node classes.string s
     | Symbol (n, s) -> node (classes.symbol n) s
     | Text s -> node classes.text s
+
+let token_to_xml =
+  let module X = Xtmpl_xml in
+  let node cl cdata =
+    let atts = X.atts_one ("","class") (cl, None) in
+    X.node ("","span") ~atts [X.cdata cdata]
+  in
+  token_to node
 ;;
 
-let to_xtmpl ?classes ~lang s =
-  List.map (token_to_xtmpl ?classes) (parse ~lang s)
+let token_to_xml_rewrite =
+  let module X = Xtmpl_rewrite in
+  let node cl cdata =
+    let atts = X.atts_one ("","class") [X.cdata cl] in
+    X.node ("","span") ~atts [X.cdata cdata]
+  in
+  token_to node
 ;;
+
+let to_xml ?classes ~lang s =
+  List.map (token_to_xml ?classes) (parse ~lang s)
+;;
+
+let to_xml_rewrite ?classes ~lang s =
+  List.map (token_to_xml_rewrite ?classes) (parse ~lang s)
+;;
+
