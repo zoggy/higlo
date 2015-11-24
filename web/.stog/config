@@ -1,12 +1,7 @@
-(* Regexps of files to ignore *)
-ignored = [".*less"; ".*\\.git"; ".*Makefile"; ".*tmpl$" ; ".*/myprinter.*"; ".*/usage.txt$" ]
-(* Regexps of files containing documents *)
-documents = [".*\\.xml$"; ".*\\.html$"]
-(* Regexps of files matching 'documents' regexps but not containing documents
-   *)
-"not-documents" = []
-(* follow symlinks when bulding source file and directory tree *)
-"follow-symlinks" = false
-(* Run levels of modules, for example:
-         [ ("html", [ ("base", [ 0 ; 61 ]) ] ) ] *)
-levels = []
+{
+ignored: [".*less", ".*\\.git", ".*Makefile", ".*tmpl$" , ".*/myprinter.*", ".*/usage.txt$" ],
+documents: [".*\\.xml$", ".*\\.html$"],
+not_documents: [],
+follow_symlinks: false,
+levels: []
+}

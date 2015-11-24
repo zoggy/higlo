@@ -65,6 +65,8 @@ let regexp comment = "(*" ([^0x2A] | ('*'[^')']))* "*)"
 
 let regexp id = ('_'|lowchar) idchar*
 
+let regexp percent_id = '%' id
+
 let regexp decl_kw = "and" |"class" |"constraint" |"exception" |"external" |"let" |"fun" |"function" |"functor" |"in" |"include" |"inherit" |"initializer" |"method" |"module" |"mutable" | "nonrec" | "of" |"open" |"private" |"rec" |"type" |"val" |"virtual"
 
 let regexp expr_kw ="asr" |"do" |"else" |"for" |"if" |"while" |"as" |"assert" |"begin" |"do" |"done" |"downto" |"else" |"end" |"for" |"if" |"land" |"lazy" |"lor" |"lsl" |"lsr" |"lxor" |"match" |"mod" |"new" |"object" |"or" | "ref" |"sig" |"struct" |"then" |"to" |"try" |"when" |"while" |"with" |"#"
@@ -95,6 +97,14 @@ let rec main = lexer
 | expr_kw -> [Keyword (1, lexeme lexbuf)]
 | modname -> [Keyword (2, lexeme lexbuf)]
 | type_kw -> [Keyword (3, lexeme lexbuf)]
+| percent_id ->
+    begin
+      let lexeme = lexeme lexbuf in
+      let id = String.sub lexeme 1 (String.length lexeme - 1) in
+      match id with
+        "lwt" -> [ Keyword (10, lexeme) ]
+      | _ -> [ Keyword (5, id) ]
+    end
 | lwt_kw -> [Keyword (10, lexeme lexbuf)]
 | label -> [Keyword (4, lexeme lexbuf)]
 | id -> [Id (lexeme lexbuf)]

@@ -2,6 +2,7 @@ Next release:
 - add json and dot lexers
 - support "nonrec" keyword in ocaml lexer
 - use Xtmpl >= 0.13
+- OCaml lexer: handle %id as Keyword 5
 
 Release 0.4:
 - safe-string mode
