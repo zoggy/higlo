@@ -234,16 +234,24 @@ This structure defines the (X)HTML classes to use
 Default X(HTML) classes.<br/>
 </div>
 
-<pre><span id="VALtoken_to_xtmpl"><span class="keyword">val</span> token_to_xtmpl</span> : <code class="type">?classes:<a href="Higlo.html#TYPEclasses">classes</a> -&gt; <a href="Higlo.html#TYPEtoken">token</a> -&gt; Xtmpl.tree</code></pre><div class="info ">
+<pre><span id="VALtoken_to_xml"><span class="keyword">val</span> token_to_xml</span> : <code class="type">?classes:<a href="Higlo.html#TYPEclasses">classes</a> -&gt; <a href="Higlo.html#TYPEtoken">token</a> -&gt; Xtmpl_xml.tree</code></pre><div class="info ">
 Map a token to an XML tree (just a <code class="code">&lt;span class="..."&gt;code&lt;/span&gt;</code> node).<br/>
 </div>
 <div class="param_info"><code class="code">classes</code> : is used to change the class names used in the generated
   node.</div>
 
-<pre><span id="VALto_xtmpl"><span class="keyword">val</span> to_xtmpl</span> : <code class="type">?classes:<a href="Higlo.html#TYPEclasses">classes</a> -&gt; lang:string -&gt; string -&gt; Xtmpl.tree list</code></pre><div class="info ">
+<pre><span id="VALtoken_to_xml_rewrite"><span class="keyword">val</span> token_to_xml_rewrite</span> : <code class="type">?classes:<a href="Higlo.html#TYPEclasses">classes</a> -&gt; <a href="Higlo.html#TYPEtoken">token</a> -&gt; Xtmpl_rewrite.tree</code></pre><div class="info ">
+Same as <a href="Higlo.html#VALtoken_to_xml"><code class="code">Higlo.token_to_xml</code></a> but return a <code class="code">Xtmpl_rewrite.tree</code>.<br/>
+</div>
+
+<pre><span id="VALto_xml"><span class="keyword">val</span> to_xml</span> : <code class="type">?classes:<a href="Higlo.html#TYPEclasses">classes</a> -&gt; lang:string -&gt; string -&gt; Xtmpl_xml.tree list</code></pre><div class="info ">
 <code class="code">to_xtmpl ~lang code</code> gets the lexer associated to the language <code class="code">lang</code>,
   uses it to retrieve a list of tokens (using the <a href="Higlo.html#VALparse"><code class="code">Higlo.parse</code></a> function)
-  and maps these tokens to XML nodes. See <a href="Higlo.html#VALtoken_to_xtmpl"><code class="code">Higlo.token_to_xtmpl</code></a> about
+  and maps these tokens to XML nodes. See <code class="code">token_to_xtmpl</code> about
   the <code class="code">classes</code> parameter.<br/>
+</div>
+
+<pre><span id="VALto_xml_rewrite"><span class="keyword">val</span> to_xml_rewrite</span> : <code class="type">?classes:<a href="Higlo.html#TYPEclasses">classes</a> -&gt; lang:string -&gt; string -&gt; Xtmpl_rewrite.tree list</code></pre><div class="info ">
+Same as <a href="Higlo.html#VALto_xml"><code class="code">Higlo.to_xml</code></a> but return a <code class="code">Xtmpl_rewrite.tree</code>.<br/>
 </div>
 </div></contents></ocamldoc>

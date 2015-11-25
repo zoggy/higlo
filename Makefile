@@ -139,7 +139,7 @@ doc:
 docstog:
 	$(MKDIR) web/refdoc
 	$(OCAMLFIND) ocamldoc $(OF_FLAGS) -rectypes higlo.mli \
-	-t Higlo -d web/refdoc -g odoc_stog.cmo
+	-t Higlo -d web/refdoc -i `$(OCAMLFIND) query stog` -g odoc_stog.cmo
 
 webdoc:
 	$(MAKE) docstog
