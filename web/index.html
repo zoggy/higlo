@@ -22,8 +22,8 @@ support additional languages and develop the generator for the output
 format you need.
 </p>
 <p>
-By now, only OCaml and XML input languages are provided, and it only
-generates <a href="http://zoggy.github.io/xtmpl/refdoc/Xtmpl.html#TYPEtree">Xtmpl.tree</a>
+By now, only some input languages are supported (OCaml, XML, JSON and Graphviz/dot), and it only
+generates <a href="http://zoggy.github.io/xtmpl/refdoc/Xtmpl_rewrite.html#TYPEtree">Xtmpl_rewrite.tree</a>
 to highlight code in XML. Developing support for additional input languages
 is just a matter of writing a Ulex lexer. Supporting another output
 format only requires mapping values of type <doc href="refdoc/Higlo#TYPEtoken">token</doc>.
@@ -39,6 +39,14 @@ Higlo is <a href="https://github.com/zoggy/higlo">hosted on Github</a>.
 
 <subsection id="releases" title="Releases">
 <ul>
+<li><a href="higlo-0.5.tar.gz">0.5</a> [2015-11-25]:
+<ul>
+<li>add JSON and Graphviz/dot lexers,</li>
+<li>support <ml>nonrec</ml> keyword in OCaml lexer,</li>
+<li>use Xtmpl &gt;= 0.13,</li>
+<li>handle %id as <ml>Keyword 5</ml> in OCaml lexer.</li>
+</ul>
+</li>
 <li><a href="higlo-0.4.tar.gz">0.4</a> [2014-09-25]:
 <ul>
 <li>Safe-string mode (require OCaml &gt;= 4.02),</li>
@@ -66,7 +74,7 @@ Higlo is <a href="https://github.com/zoggy/higlo">hosted on Github</a>.
 <section id="install" title="Installation">
 <p>
 Higlo requires OCaml &gt; 4.02,
-<a href="http://zoggy.github.io/xtmpl">Xtmpl >= 0.8</a>
+<a href="http://zoggy.github.io/xtmpl">Xtmpl >= 0.13.0</a>
 and <a href="http://alain.frisch.fr/soft.html#ulex">Ulex >= 1.1</a>
 to be installed.
 </p>

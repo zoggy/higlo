@@ -1,4 +1,4 @@
-Next release:
+Release 0.5:
 - add json and dot lexers
 - support "nonrec" keyword in ocaml lexer
 - use Xtmpl >= 0.13
