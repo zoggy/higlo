@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <html>
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
@@ -10,13 +9,18 @@
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
-
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
 
   <div class="nav-collapse">
     <ul class="nav">
     <li class="&lt;navbar-home/&gt;"><a href="http://zoggy.github.io/higlo/index.html">Higlo</a></li>
     <li class="active"><a href="http://zoggy.github.io/higlo/doc.html">Documentation</a></li>
-
+<!--
+    &lt;li class="&lt;navbar-install/&gt;"&gt;&lt;page href="/install"&gt;Installation&lt;/page&gt;&lt;/li&gt;
+    &lt;li class="&lt;navbar-plugins/&gt;"&gt;&lt;page href="/plugins"&gt;Plugins&lt;/page&gt;&lt;/li&gt;
+    &lt;li class="&lt;navbar-blog/&gt;"&gt;&lt;page href="/blog"&gt;Blog&lt;/page&gt;&lt;/li&gt;
+    &lt;li class="&lt;navbar-about/&gt;"&gt;&lt;page href="about"&gt;?&lt;/page&gt;&lt;/li&gt;
+-->
   </ul>
   <div class="nav pull-right">  </div>
   </div>
@@ -28,9 +32,9 @@
 <div id="header">
   
   
-  
+  <main_/>
 </div>
-
+<main_/>
 
 
 <div class="ocamldoc-page">
@@ -72,16 +76,26 @@ For debug printing.
 </div>
 </td></tr>
 <tr><td align="left"><br/>T</td></tr>
-<tr><td><a href="Higlo.html#VALto_xtmpl">to_xtmpl</a> [<a href="Higlo.html">Higlo</a>]</td>
+<tr><td><a href="Higlo.html#VALto_xml">to_xml</a> [<a href="Higlo.html">Higlo</a>]</td>
 <td><div class="info">
 <code class="code">to_xtmpl ~lang code</code> gets the lexer associated to the language <code class="code">lang</code>,
   uses it to retrieve a list of tokens (using the <a href="Higlo.html#VALparse"><code class="code">Higlo.parse</code></a> function)
   and maps these tokens to XML nodes.
 </div>
 </td></tr>
-<tr><td><a href="Higlo.html#VALtoken_to_xtmpl">token_to_xtmpl</a> [<a href="Higlo.html">Higlo</a>]</td>
+<tr><td><a href="Higlo.html#VALto_xml_rewrite">to_xml_rewrite</a> [<a href="Higlo.html">Higlo</a>]</td>
 <td><div class="info">
-Map a token to an XML tree (just a <code class="code">&lt;span class=&quot;...&quot;&gt;code&lt;/span&gt;</code> node).
+Same as <a href="Higlo.html#VALto_xml"><code class="code">Higlo.to_xml</code></a> but return a <code class="code">Xtmpl_rewrite.tree</code>.
+</div>
+</td></tr>
+<tr><td><a href="Higlo.html#VALtoken_to_xml">token_to_xml</a> [<a href="Higlo.html">Higlo</a>]</td>
+<td><div class="info">
+Map a token to an XML tree (just a <code class="code">&lt;span class="..."&gt;code&lt;/span&gt;</code> node).
+</div>
+</td></tr>
+<tr><td><a href="Higlo.html#VALtoken_to_xml_rewrite">token_to_xml_rewrite</a> [<a href="Higlo.html">Higlo</a>]</td>
+<td><div class="info">
+Same as <a href="Higlo.html#VALtoken_to_xml"><code class="code">Higlo.token_to_xml</code></a> but return a <code class="code">Xtmpl_rewrite.tree</code>.
 </div>
 </td></tr>
 </table>
@@ -91,9 +105,10 @@ Map a token to an XML tree (just a <code class="code">&lt;span class=&quot;...&q
 
 
 
+<!--&lt;script type="text/javascript" src="&lt;site-url/&gt;/jquery.js"&gt;_&lt;/script&gt;-->
+<!--&lt;script type="text/javascript" src="&lt;site-url/&gt;/bootstrap-collapse.js"&gt;_&lt;/script&gt;-->
 
-
-
-</div> 
+</div> <!-- #page -->
 </body>
 </html>
+

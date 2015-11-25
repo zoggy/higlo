@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <html>
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
@@ -10,13 +9,18 @@
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner">
 <div class="container">
-
+<!--&lt;image float="right" src="&lt;site-url/&gt;/stog-logo.svg" width="30"/&gt;-->
 
   <div class="nav-collapse">
     <ul class="nav">
     <li class="&lt;navbar-home/&gt;"><a href="http://zoggy.github.io/higlo/index.html">Higlo</a></li>
     <li class="active"><a href="http://zoggy.github.io/higlo/doc.html">Documentation</a></li>
-
+<!--
+    &lt;li class="&lt;navbar-install/&gt;"&gt;&lt;page href="/install"&gt;Installation&lt;/page&gt;&lt;/li&gt;
+    &lt;li class="&lt;navbar-plugins/&gt;"&gt;&lt;page href="/plugins"&gt;Plugins&lt;/page&gt;&lt;/li&gt;
+    &lt;li class="&lt;navbar-blog/&gt;"&gt;&lt;page href="/blog"&gt;Blog&lt;/page&gt;&lt;/li&gt;
+    &lt;li class="&lt;navbar-about/&gt;"&gt;&lt;page href="about"&gt;?&lt;/page&gt;&lt;/li&gt;
+-->
   </ul>
   <div class="nav pull-right">  </div>
   </div>
@@ -28,9 +32,9 @@
 <div id="header">
   
   
-  
+  <main_/>
 </div>
-
+<main_/>
 
 
 <div class="ocamldoc-page">
@@ -49,7 +53,7 @@ Syntax highligthing<br/>
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top">
 <code><span id="TYPEELTtoken.Bcomment"><span class="constructor">Bcomment</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-<td align="left" class="typefieldcomment" valign="top"><code>(*</code></td><td align="left" class="typefieldcomment" valign="top"><div class="info">
+<td align="left" class="typefieldcomment" valign="top"><code>(*</code></td><td align="left" class="typefieldcomment" valign="top"><div class="info ">
 block comment<br/>
 </div>
 </td><td align="left" class="typefieldcomment" valign="bottom"><code>*)</code></td>
@@ -73,7 +77,7 @@ block comment<br/>
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top">
 <code><span id="TYPEELTtoken.Escape"><span class="constructor">Escape</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-<td align="left" class="typefieldcomment" valign="top"><code>(*</code></td><td align="left" class="typefieldcomment" valign="top"><div class="info">
+<td align="left" class="typefieldcomment" valign="top"><code>(*</code></td><td align="left" class="typefieldcomment" valign="top"><div class="info ">
 Escape sequence like <code class="code">\123</code><br/>
 </div>
 </td><td align="left" class="typefieldcomment" valign="bottom"><code>*)</code></td>
@@ -97,7 +101,7 @@ Escape sequence like <code class="code">\123</code><br/>
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top">
 <code><span id="TYPEELTtoken.Lcomment"><span class="constructor">Lcomment</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-<td align="left" class="typefieldcomment" valign="top"><code>(*</code></td><td align="left" class="typefieldcomment" valign="top"><div class="info">
+<td align="left" class="typefieldcomment" valign="top"><code>(*</code></td><td align="left" class="typefieldcomment" valign="top"><div class="info ">
 one line comment<br/>
 </div>
 </td><td align="left" class="typefieldcomment" valign="bottom"><code>*)</code></td>
@@ -128,13 +132,13 @@ one line comment<br/>
 <code><span class="keyword">|</span></code></td>
 <td align="left" valign="top">
 <code><span id="TYPEELTtoken.Text"><span class="constructor">Text</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
-<td align="left" class="typefieldcomment" valign="top"><code>(*</code></td><td align="left" class="typefieldcomment" valign="top"><div class="info">
+<td align="left" class="typefieldcomment" valign="top"><code>(*</code></td><td align="left" class="typefieldcomment" valign="top"><div class="info ">
 Used for everything else<br/>
 </div>
 </td><td align="left" class="typefieldcomment" valign="bottom"><code>*)</code></td>
 </tr></table>
 
-<div class="info">
+<div class="info ">
 Tokens read in the given code. These names are inspired from
  the <code class="code">highlight</code> tool. <code class="code">Keyword</code> and <code class="code">Symbol</code> are parametrized by
  an integer to be able to distinguish different families of keywords
@@ -142,34 +146,34 @@ Tokens read in the given code. These names are inspired from
 </div>
 
 
-<pre><span id="VALstring_of_token"><span class="keyword">val</span> string_of_token</span> : <code class="type"><a href="Higlo.html#TYPEtoken">token</a> -&gt; string</code></pre><div class="info">
+<pre><span id="VALstring_of_token"><span class="keyword">val</span> string_of_token</span> : <code class="type"><a href="Higlo.html#TYPEtoken">token</a> -&gt; string</code></pre><div class="info ">
 For debug printing.<br/>
 </div>
 
 <pre><span id="EXCEPTIONUnknown_lang"><span class="keyword">exception</span> Unknown_lang</span> <span class="keyword">of</span> <code class="type">string</code></pre>
-<div class="info">
+<div class="info ">
 Raised by <a href="Higlo.html#VALget_lexer"><code class="code">Higlo.get_lexer</code></a> when the required language is not found.<br/>
 </div>
 
 <pre><span id="TYPElexer"><span class="keyword">type</span> lexer</span> = <code class="type">Ulexing.lexbuf -&gt; <a href="Higlo.html#TYPEtoken">token</a> list</code> </pre>
-<div class="info">
+<div class="info ">
 Lexers are based on Ulex. A lexer returns a list of tokens,
   in the same order they appear in the read string.
   <code class="code">Text</code> tokens are merged by the <a href="Higlo.html#VALparse"><code class="code">Higlo.parse</code></a> function.<br/>
 </div>
 
 
-<pre><span id="VALget_lexer"><span class="keyword">val</span> get_lexer</span> : <code class="type">string -&gt; <a href="Higlo.html#TYPElexer">lexer</a></code></pre><div class="info">
+<pre><span id="VALget_lexer"><span class="keyword">val</span> get_lexer</span> : <code class="type">string -&gt; <a href="Higlo.html#TYPElexer">lexer</a></code></pre><div class="info ">
 <code class="code">get_lexer lang</code> returns the lexer registered for the given language
   <code class="code">lang</code> or raises <a href="Higlo.html#EXCEPTIONUnknown_lang"><code class="code">Higlo.Unknown_lang</code></a> if no such language was registered.<br/>
 </div>
 
-<pre><span id="VALregister_lang"><span class="keyword">val</span> register_lang</span> : <code class="type">string -&gt; <a href="Higlo.html#TYPElexer">lexer</a> -&gt; unit</code></pre><div class="info">
+<pre><span id="VALregister_lang"><span class="keyword">val</span> register_lang</span> : <code class="type">string -&gt; <a href="Higlo.html#TYPElexer">lexer</a> -&gt; unit</code></pre><div class="info ">
 If a lexer was registered for the same language, it is not
   available any more.<br/>
 </div>
 
-<pre><span id="VALparse"><span class="keyword">val</span> parse</span> : <code class="type">lang:string -&gt; string -&gt; <a href="Higlo.html#TYPEtoken">token</a> list</code></pre><div class="info">
+<pre><span id="VALparse"><span class="keyword">val</span> parse</span> : <code class="type">lang:string -&gt; string -&gt; <a href="Higlo.html#TYPEtoken">token</a> list</code></pre><div class="info ">
 <code class="code">parse ~lang code</code> gets the lexer associated to <code class="code">lang</code>
   and uses it to build a list of tokens. Consecutive <code class="code">Text</code>
   tokens are merged.
@@ -257,37 +261,46 @@ If a lexer was registered for the same language, it is not
 </tr></table>
 }
 
-<div class="info">
+<div class="info ">
 This structure defines the (X)HTML classes to use
   when producing XML.<br/>
 </div>
 
 
-<pre><span id="VALdefault_classes"><span class="keyword">val</span> default_classes</span> : <code class="type"><a href="Higlo.html#TYPEclasses">classes</a></code></pre><div class="info">
+<pre><span id="VALdefault_classes"><span class="keyword">val</span> default_classes</span> : <code class="type"><a href="Higlo.html#TYPEclasses">classes</a></code></pre><div class="info ">
 Default X(HTML) classes.<br/>
 </div>
 
-<pre><span id="VALtoken_to_xtmpl"><span class="keyword">val</span> token_to_xtmpl</span> : <code class="type">?classes:<a href="Higlo.html#TYPEclasses">classes</a> -&gt; <a href="Higlo.html#TYPEtoken">token</a> -&gt; Xtmpl.tree</code></pre><div class="info">
-Map a token to an XML tree (just a <code class="code">&lt;span class=&quot;...&quot;&gt;code&lt;/span&gt;</code> node).<br/>
+<pre><span id="VALtoken_to_xml"><span class="keyword">val</span> token_to_xml</span> : <code class="type">?classes:<a href="Higlo.html#TYPEclasses">classes</a> -&gt; <a href="Higlo.html#TYPEtoken">token</a> -&gt; Xtmpl_xml.tree</code></pre><div class="info ">
+Map a token to an XML tree (just a <code class="code">&lt;span class="..."&gt;code&lt;/span&gt;</code> node).<br/>
 </div>
 <div class="param_info"><code class="code">classes</code> : is used to change the class names used in the generated
   node.</div>
 
-<pre><span id="VALto_xtmpl"><span class="keyword">val</span> to_xtmpl</span> : <code class="type">?classes:<a href="Higlo.html#TYPEclasses">classes</a> -&gt; lang:string -&gt; string -&gt; Xtmpl.tree list</code></pre><div class="info">
+<pre><span id="VALtoken_to_xml_rewrite"><span class="keyword">val</span> token_to_xml_rewrite</span> : <code class="type">?classes:<a href="Higlo.html#TYPEclasses">classes</a> -&gt; <a href="Higlo.html#TYPEtoken">token</a> -&gt; Xtmpl_rewrite.tree</code></pre><div class="info ">
+Same as <a href="Higlo.html#VALtoken_to_xml"><code class="code">Higlo.token_to_xml</code></a> but return a <code class="code">Xtmpl_rewrite.tree</code>.<br/>
+</div>
+
+<pre><span id="VALto_xml"><span class="keyword">val</span> to_xml</span> : <code class="type">?classes:<a href="Higlo.html#TYPEclasses">classes</a> -&gt; lang:string -&gt; string -&gt; Xtmpl_xml.tree list</code></pre><div class="info ">
 <code class="code">to_xtmpl ~lang code</code> gets the lexer associated to the language <code class="code">lang</code>,
   uses it to retrieve a list of tokens (using the <a href="Higlo.html#VALparse"><code class="code">Higlo.parse</code></a> function)
-  and maps these tokens to XML nodes. See <a href="Higlo.html#VALtoken_to_xtmpl"><code class="code">Higlo.token_to_xtmpl</code></a> about
+  and maps these tokens to XML nodes. See <code class="code">token_to_xtmpl</code> about
   the <code class="code">classes</code> parameter.<br/>
 </div>
+
+<pre><span id="VALto_xml_rewrite"><span class="keyword">val</span> to_xml_rewrite</span> : <code class="type">?classes:<a href="Higlo.html#TYPEclasses">classes</a> -&gt; lang:string -&gt; string -&gt; Xtmpl_rewrite.tree list</code></pre><div class="info ">
+Same as <a href="Higlo.html#VALto_xml"><code class="code">Higlo.to_xml</code></a> but return a <code class="code">Xtmpl_rewrite.tree</code>.<br/>
+</div>
 </div>
 
 
 
 
 
+<!--&lt;script type="text/javascript" src="&lt;site-url/&gt;/jquery.js"&gt;_&lt;/script&gt;-->
+<!--&lt;script type="text/javascript" src="&lt;site-url/&gt;/bootstrap-collapse.js"&gt;_&lt;/script&gt;-->
 
-
-
-</div> 
+</div> <!-- #page -->
 </body>
 </html>
+
