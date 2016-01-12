@@ -101,9 +101,8 @@ let rec main = lexer
     begin
       let lexeme = lexeme lexbuf in
       let id = String.sub lexeme 1 (String.length lexeme - 1) in
-      match id with
-        "lwt" -> [ Keyword (10, lexeme) ]
-      | _ -> [ Keyword (5, id) ]
+      let level = match id with "lwt" -> 10 | _ -> 5 in
+      [ Keyword (level, lexeme) ]
     end
 | lwt_kw -> [Keyword (10, lexeme lexbuf)]
 | label -> [Keyword (4, lexeme lexbuf)]

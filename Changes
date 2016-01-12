@@ -1,3 +1,6 @@
+Next release:
+- OCaml lexer: fix highlight of %id (% was removed except for %lwt)
+
 Release 0.5:
 - add json and dot lexers
 - support "nonrec" keyword in ocaml lexer
