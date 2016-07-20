@@ -100,9 +100,7 @@ let rec main = lexer
 | percent_id ->
     begin
       let lexeme = lexeme lexbuf in
-      let id = String.sub lexeme 1 (String.length lexeme - 1) in
-      let level = match id with "lwt" -> 10 | _ -> 5 in
-      [ Keyword (level, lexeme) ]
+      [ Keyword (5, lexeme) ]
     end
 | lwt_kw -> [Keyword (10, lexeme lexbuf)]
 | label -> [Keyword (4, lexeme lexbuf)]
