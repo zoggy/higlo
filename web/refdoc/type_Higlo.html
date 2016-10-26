@@ -1,43 +1,43 @@
 <ocamldoc with-contents="true"><title>Higlo : Higlo</title><contents><div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-&#160;&#160;<span class="keyword">type</span>&#160;token&#160;=<br/>
-&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Bcomment</span>&#160;<span class="keyword">of</span>&#160;string<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Constant</span>&#160;<span class="keyword">of</span>&#160;string<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Directive</span>&#160;<span class="keyword">of</span>&#160;string<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Escape</span>&#160;<span class="keyword">of</span>&#160;string<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Id</span>&#160;<span class="keyword">of</span>&#160;string<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Keyword</span>&#160;<span class="keyword">of</span>&#160;int&#160;*&#160;string<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Lcomment</span>&#160;<span class="keyword">of</span>&#160;string<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Numeric</span>&#160;<span class="keyword">of</span>&#160;string<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">String</span>&#160;<span class="keyword">of</span>&#160;string<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Symbol</span>&#160;<span class="keyword">of</span>&#160;int&#160;*&#160;string<br/>
-&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Text</span>&#160;<span class="keyword">of</span>&#160;string<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;string_of_token&#160;:&#160;<span class="constructor">Higlo</span>.token&#160;<span class="keywordsign">-&gt;</span>&#160;string<br/>
-&#160;&#160;<span class="keyword">exception</span>&#160;<span class="constructor">Unknown_lang</span>&#160;<span class="keyword">of</span>&#160;string<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;lexer&#160;=&#160;<span class="constructor">Ulexing</span>.lexbuf&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Higlo</span>.token&#160;list<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;get_lexer&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Higlo</span>.lexer<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;register_lang&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Higlo</span>.lexer&#160;<span class="keywordsign">-&gt;</span>&#160;unit<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;parse&#160;:&#160;lang:string&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Higlo</span>.token&#160;list<br/>
-&#160;&#160;<span class="keyword">type</span>&#160;classes&#160;=&#160;{<br/>
-&#160;&#160;&#160;&#160;bcomment&#160;:&#160;string;<br/>
-&#160;&#160;&#160;&#160;constant&#160;:&#160;string;<br/>
-&#160;&#160;&#160;&#160;directive&#160;:&#160;string;<br/>
-&#160;&#160;&#160;&#160;escape&#160;:&#160;string;<br/>
-&#160;&#160;&#160;&#160;id&#160;:&#160;string;<br/>
-&#160;&#160;&#160;&#160;keyword&#160;:&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;string;<br/>
-&#160;&#160;&#160;&#160;lcomment&#160;:&#160;string;<br/>
-&#160;&#160;&#160;&#160;numeric&#160;:&#160;string;<br/>
-&#160;&#160;&#160;&#160;string&#160;:&#160;string;<br/>
-&#160;&#160;&#160;&#160;symbol&#160;:&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;string;<br/>
-&#160;&#160;&#160;&#160;text&#160;:&#160;string;<br/>
-&#160;&#160;}<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;default_classes&#160;:&#160;<span class="constructor">Higlo</span>.classes<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;token_to_xml&#160;:&#160;?classes:<span class="constructor">Higlo</span>.classes&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Higlo</span>.token&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Xtmpl_xml</span>.tree<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;token_to_xml_rewrite&#160;:<br/>
-&#160;&#160;&#160;&#160;?classes:<span class="constructor">Higlo</span>.classes&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Higlo</span>.token&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Xtmpl_rewrite</span>.tree<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;to_xml&#160;:<br/>
-&#160;&#160;&#160;&#160;?classes:<span class="constructor">Higlo</span>.classes&#160;<span class="keywordsign">-&gt;</span>&#160;lang:string&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Xtmpl_xml</span>.tree&#160;list<br/>
-&#160;&#160;<span class="keyword">val</span>&#160;to_xml_rewrite&#160;:<br/>
-&#160;&#160;&#160;&#160;?classes:<span class="constructor">Higlo</span>.classes&#160;<span class="keywordsign">-&gt;</span><br/>
-&#160;&#160;&#160;&#160;lang:string&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Xtmpl_rewrite</span>.tree&#160;list<br/>
+<code class="code"><span class="keyword">sig</span>
+&#160;&#160;<span class="keyword">type</span>&#160;token&#160;=
+&#160;&#160;&#160;&#160;&#160;&#160;<span class="constructor">Bcomment</span>&#160;<span class="keyword">of</span>&#160;string
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Constant</span>&#160;<span class="keyword">of</span>&#160;string
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Directive</span>&#160;<span class="keyword">of</span>&#160;string
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Escape</span>&#160;<span class="keyword">of</span>&#160;string
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Id</span>&#160;<span class="keyword">of</span>&#160;string
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Keyword</span>&#160;<span class="keyword">of</span>&#160;int&#160;*&#160;string
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Lcomment</span>&#160;<span class="keyword">of</span>&#160;string
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Numeric</span>&#160;<span class="keyword">of</span>&#160;string
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">String</span>&#160;<span class="keyword">of</span>&#160;string
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Symbol</span>&#160;<span class="keyword">of</span>&#160;int&#160;*&#160;string
+&#160;&#160;&#160;&#160;<span class="keywordsign">|</span>&#160;<span class="constructor">Text</span>&#160;<span class="keyword">of</span>&#160;string
+&#160;&#160;<span class="keyword">val</span>&#160;string_of_token&#160;:&#160;<span class="constructor">Higlo</span>.token&#160;<span class="keywordsign">-&gt;</span>&#160;string
+&#160;&#160;<span class="keyword">exception</span>&#160;<span class="constructor">Unknown_lang</span>&#160;<span class="keyword">of</span>&#160;string
+&#160;&#160;<span class="keyword">type</span>&#160;lexer&#160;=&#160;<span class="constructor">Ulexing</span>.lexbuf&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Higlo</span>.token&#160;list
+&#160;&#160;<span class="keyword">val</span>&#160;get_lexer&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Higlo</span>.lexer
+&#160;&#160;<span class="keyword">val</span>&#160;register_lang&#160;:&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Higlo</span>.lexer&#160;<span class="keywordsign">-&gt;</span>&#160;unit
+&#160;&#160;<span class="keyword">val</span>&#160;parse&#160;:&#160;lang:string&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Higlo</span>.token&#160;list
+&#160;&#160;<span class="keyword">type</span>&#160;classes&#160;=&#160;{
+&#160;&#160;&#160;&#160;bcomment&#160;:&#160;string;
+&#160;&#160;&#160;&#160;constant&#160;:&#160;string;
+&#160;&#160;&#160;&#160;directive&#160;:&#160;string;
+&#160;&#160;&#160;&#160;escape&#160;:&#160;string;
+&#160;&#160;&#160;&#160;id&#160;:&#160;string;
+&#160;&#160;&#160;&#160;keyword&#160;:&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;string;
+&#160;&#160;&#160;&#160;lcomment&#160;:&#160;string;
+&#160;&#160;&#160;&#160;numeric&#160;:&#160;string;
+&#160;&#160;&#160;&#160;string&#160;:&#160;string;
+&#160;&#160;&#160;&#160;symbol&#160;:&#160;int&#160;<span class="keywordsign">-&gt;</span>&#160;string;
+&#160;&#160;&#160;&#160;text&#160;:&#160;string;
+&#160;&#160;}
+&#160;&#160;<span class="keyword">val</span>&#160;default_classes&#160;:&#160;<span class="constructor">Higlo</span>.classes
+&#160;&#160;<span class="keyword">val</span>&#160;token_to_xml&#160;:&#160;?classes:<span class="constructor">Higlo</span>.classes&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Higlo</span>.token&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Xtmpl_xml</span>.tree
+&#160;&#160;<span class="keyword">val</span>&#160;token_to_xml_rewrite&#160;:
+&#160;&#160;&#160;&#160;?classes:<span class="constructor">Higlo</span>.classes&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Higlo</span>.token&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Xtmpl_rewrite</span>.tree
+&#160;&#160;<span class="keyword">val</span>&#160;to_xml&#160;:
+&#160;&#160;&#160;&#160;?classes:<span class="constructor">Higlo</span>.classes&#160;<span class="keywordsign">-&gt;</span>&#160;lang:string&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Xtmpl_xml</span>.tree&#160;list
+&#160;&#160;<span class="keyword">val</span>&#160;to_xml_rewrite&#160;:
+&#160;&#160;&#160;&#160;?classes:<span class="constructor">Higlo</span>.classes&#160;<span class="keywordsign">-&gt;</span>
+&#160;&#160;&#160;&#160;lang:string&#160;<span class="keywordsign">-&gt;</span>&#160;string&#160;<span class="keywordsign">-&gt;</span>&#160;<span class="constructor">Xtmpl_rewrite</span>.tree&#160;list
 <span class="keyword">end</span></code></div></contents></ocamldoc>

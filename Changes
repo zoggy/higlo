@@ -1,5 +1,5 @@
 Release 0.6:
-- use same keyword level for %lwt as for other %id
+- OCaml lexer: use same keyword level for %lwt as for other %id
 - OCaml lexer: fix highlight of %id (% was removed except for %lwt)
 
 Release 0.5:
