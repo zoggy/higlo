@@ -38,47 +38,47 @@
 
 
 <div class="ocamldoc-page">
-<code class="code"><span class="keyword">sig</span><br/>
-  <span class="keyword">type</span> token =<br/>
-      <span class="constructor">Bcomment</span> <span class="keyword">of</span> string<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Constant</span> <span class="keyword">of</span> string<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Directive</span> <span class="keyword">of</span> string<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Escape</span> <span class="keyword">of</span> string<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Id</span> <span class="keyword">of</span> string<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Keyword</span> <span class="keyword">of</span> int * string<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Lcomment</span> <span class="keyword">of</span> string<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Numeric</span> <span class="keyword">of</span> string<br/>
-    <span class="keywordsign">|</span> <span class="constructor">String</span> <span class="keyword">of</span> string<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Symbol</span> <span class="keyword">of</span> int * string<br/>
-    <span class="keywordsign">|</span> <span class="constructor">Text</span> <span class="keyword">of</span> string<br/>
-  <span class="keyword">val</span> string_of_token : <span class="constructor">Higlo</span>.token <span class="keywordsign">-&gt;</span> string<br/>
-  <span class="keyword">exception</span> <span class="constructor">Unknown_lang</span> <span class="keyword">of</span> string<br/>
-  <span class="keyword">type</span> lexer = <span class="constructor">Ulexing</span>.lexbuf <span class="keywordsign">-&gt;</span> <span class="constructor">Higlo</span>.token list<br/>
-  <span class="keyword">val</span> get_lexer : string <span class="keywordsign">-&gt;</span> <span class="constructor">Higlo</span>.lexer<br/>
-  <span class="keyword">val</span> register_lang : string <span class="keywordsign">-&gt;</span> <span class="constructor">Higlo</span>.lexer <span class="keywordsign">-&gt;</span> unit<br/>
-  <span class="keyword">val</span> parse : lang:string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> <span class="constructor">Higlo</span>.token list<br/>
-  <span class="keyword">type</span> classes = {<br/>
-    bcomment : string;<br/>
-    constant : string;<br/>
-    directive : string;<br/>
-    escape : string;<br/>
-    id : string;<br/>
-    keyword : int <span class="keywordsign">-&gt;</span> string;<br/>
-    lcomment : string;<br/>
-    numeric : string;<br/>
-    string : string;<br/>
-    symbol : int <span class="keywordsign">-&gt;</span> string;<br/>
-    text : string;<br/>
-  }<br/>
-  <span class="keyword">val</span> default_classes : <span class="constructor">Higlo</span>.classes<br/>
-  <span class="keyword">val</span> token_to_xml : ?classes:<span class="constructor">Higlo</span>.classes <span class="keywordsign">-&gt;</span> <span class="constructor">Higlo</span>.token <span class="keywordsign">-&gt;</span> <span class="constructor">Xtmpl_xml</span>.tree<br/>
-  <span class="keyword">val</span> token_to_xml_rewrite :<br/>
-    ?classes:<span class="constructor">Higlo</span>.classes <span class="keywordsign">-&gt;</span> <span class="constructor">Higlo</span>.token <span class="keywordsign">-&gt;</span> <span class="constructor">Xtmpl_rewrite</span>.tree<br/>
-  <span class="keyword">val</span> to_xml :<br/>
-    ?classes:<span class="constructor">Higlo</span>.classes <span class="keywordsign">-&gt;</span> lang:string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> <span class="constructor">Xtmpl_xml</span>.tree list<br/>
-  <span class="keyword">val</span> to_xml_rewrite :<br/>
-    ?classes:<span class="constructor">Higlo</span>.classes <span class="keywordsign">-&gt;</span><br/>
-    lang:string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> <span class="constructor">Xtmpl_rewrite</span>.tree list<br/>
+<code class="code"><span class="keyword">sig</span>
+  <span class="keyword">type</span> token =
+      <span class="constructor">Bcomment</span> <span class="keyword">of</span> string
+    <span class="keywordsign">|</span> <span class="constructor">Constant</span> <span class="keyword">of</span> string
+    <span class="keywordsign">|</span> <span class="constructor">Directive</span> <span class="keyword">of</span> string
+    <span class="keywordsign">|</span> <span class="constructor">Escape</span> <span class="keyword">of</span> string
+    <span class="keywordsign">|</span> <span class="constructor">Id</span> <span class="keyword">of</span> string
+    <span class="keywordsign">|</span> <span class="constructor">Keyword</span> <span class="keyword">of</span> int * string
+    <span class="keywordsign">|</span> <span class="constructor">Lcomment</span> <span class="keyword">of</span> string
+    <span class="keywordsign">|</span> <span class="constructor">Numeric</span> <span class="keyword">of</span> string
+    <span class="keywordsign">|</span> <span class="constructor">String</span> <span class="keyword">of</span> string
+    <span class="keywordsign">|</span> <span class="constructor">Symbol</span> <span class="keyword">of</span> int * string
+    <span class="keywordsign">|</span> <span class="constructor">Text</span> <span class="keyword">of</span> string
+  <span class="keyword">val</span> string_of_token : <span class="constructor">Higlo</span>.token <span class="keywordsign">-&gt;</span> string
+  <span class="keyword">exception</span> <span class="constructor">Unknown_lang</span> <span class="keyword">of</span> string
+  <span class="keyword">type</span> lexer = <span class="constructor">Ulexing</span>.lexbuf <span class="keywordsign">-&gt;</span> <span class="constructor">Higlo</span>.token list
+  <span class="keyword">val</span> get_lexer : string <span class="keywordsign">-&gt;</span> <span class="constructor">Higlo</span>.lexer
+  <span class="keyword">val</span> register_lang : string <span class="keywordsign">-&gt;</span> <span class="constructor">Higlo</span>.lexer <span class="keywordsign">-&gt;</span> unit
+  <span class="keyword">val</span> parse : lang:string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> <span class="constructor">Higlo</span>.token list
+  <span class="keyword">type</span> classes = {
+    bcomment : string;
+    constant : string;
+    directive : string;
+    escape : string;
+    id : string;
+    keyword : int <span class="keywordsign">-&gt;</span> string;
+    lcomment : string;
+    numeric : string;
+    string : string;
+    symbol : int <span class="keywordsign">-&gt;</span> string;
+    text : string;
+  }
+  <span class="keyword">val</span> default_classes : <span class="constructor">Higlo</span>.classes
+  <span class="keyword">val</span> token_to_xml : ?classes:<span class="constructor">Higlo</span>.classes <span class="keywordsign">-&gt;</span> <span class="constructor">Higlo</span>.token <span class="keywordsign">-&gt;</span> <span class="constructor">Xtmpl_xml</span>.tree
+  <span class="keyword">val</span> token_to_xml_rewrite :
+    ?classes:<span class="constructor">Higlo</span>.classes <span class="keywordsign">-&gt;</span> <span class="constructor">Higlo</span>.token <span class="keywordsign">-&gt;</span> <span class="constructor">Xtmpl_rewrite</span>.tree
+  <span class="keyword">val</span> to_xml :
+    ?classes:<span class="constructor">Higlo</span>.classes <span class="keywordsign">-&gt;</span> lang:string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> <span class="constructor">Xtmpl_xml</span>.tree list
+  <span class="keyword">val</span> to_xml_rewrite :
+    ?classes:<span class="constructor">Higlo</span>.classes <span class="keywordsign">-&gt;</span>
+    lang:string <span class="keywordsign">-&gt;</span> string <span class="keywordsign">-&gt;</span> <span class="constructor">Xtmpl_rewrite</span>.tree list
 <span class="keyword">end</span></code></div>
 
 
