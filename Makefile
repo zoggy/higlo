@@ -24,7 +24,7 @@
 #################################################################################
 
 # DO NOT FORGET TO BUMP VERSION NUMBER IN META TOO
-VERSION=0.5
+VERSION=0.6
 
 PACKAGES=ulex,xtmpl
 OF_FLAGS=-package $(PACKAGES)

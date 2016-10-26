@@ -1,4 +1,4 @@
-version = "0.5"
+version = "0.6"
 description = "Syntax highlighting"
 requires = "ulex,xtmpl"
 archive(toploop) = "higlo.cmo"
@@ -6,12 +6,12 @@ archive(byte) = "higlo.cmo"
 archive(native) = "higlo.cmx"
 archive(native,plugin) = "higlo.cmxs"
 package "lexers" (
-  version = "0.5"
+  version = "0.6"
   description = "Higlo lexers"
   requires = "higlo.dot,higlo.json,higlo.ocaml,higlo.xml"
 )
 package "dot" (
-  version = "0.5"
+  version = "0.6"
   description = "Higlo dot lexer"
   requires = "higlo"
   archive(toploop) = "higlo_dot.cmo"
@@ -20,7 +20,7 @@ package "dot" (
   archive(native,plugin) = "higlo_dot.cmxs"
 )
 package "json" (
-  version = "0.5"
+  version = "0.6"
   description = "Higlo JSON lexer"
   requires = "higlo"
   archive(toploop) = "higlo_json.cmo"
@@ -29,7 +29,7 @@ package "json" (
   archive(native,plugin) = "higlo_json.cmxs"
 )
 package "ocaml" (
-  version = "0.5"
+  version = "0.6"
   description = "Higlo OCaml lexer"
   requires = "higlo"
   archive(toploop) = "higlo_ocaml.cmo"
@@ -38,7 +38,7 @@ package "ocaml" (
   archive(native,plugin) = "higlo_ocaml.cmxs"
 )
 package "xml" (
-  version = "0.5"
+  version = "0.6"
   description = "Higlo XML lexer"
   requires = "higlo"
   archive(toploop) = "higlo_xml.cmo"
@@ -47,7 +47,7 @@ package "xml" (
   archive(native,plugin) = "higlo_xml.cmxs"
 )
 package "main" (
-  version = "0.5"
+  version = "0.6"
   description = "Higlo tool main module"
   requires = "dynlink"
   archive(toploop) = "higlo_main.cmo"
