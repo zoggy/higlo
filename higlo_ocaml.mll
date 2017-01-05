@@ -64,8 +64,10 @@ let regexp modname = capchar idchar*
 let regexp comment = "(*" ([^0x2A] | ('*'[^')']))* "*)"
 
 let regexp id = ('_'|lowchar) idchar*
+let regexp cap_id = capchar id
+let regexp attr_id = (id | cap_id) ('.' (id | cap_id))*
 
-let regexp percent_id = '%' id
+let regexp percent_id = '%' attr_id
 
 let regexp decl_kw = "and" |"class" |"constraint" |"exception" |"external" |"let" |"fun" |"function" |"functor" |"in" |"include" |"inherit" |"initializer" |"method" |"module" |"mutable" | "nonrec" | "of" |"open" |"private" |"rec" |"type" |"val" |"virtual"
 

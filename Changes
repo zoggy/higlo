@@ -1,3 +1,6 @@
+Next release:
+- fix highlight of %id to handle capitalized ids and ids with dots
+
 Release 0.6:
 - OCaml lexer: use same keyword level for %lwt as for other %id
 - OCaml lexer: fix highlight of %id (% was removed except for %lwt)
