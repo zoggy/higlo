@@ -3,4 +3,4 @@ higlo
 
 Syntax highlighter in OCaml.
 
-More information at http://zoggy.github.io/higlo/ .
+Development is now hosted on https://framagit.org/zoggy/higlo .

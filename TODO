@@ -1,7 +1,0 @@
-- higlo executable:
-  - load .cm[xs,o,a]
-  - lex other arguments
-  - output in asked format
-  - plugins can define lexers and "outputters"
-- mk-higlo script
-- in opam: do not forget to declare the executables in files/...
